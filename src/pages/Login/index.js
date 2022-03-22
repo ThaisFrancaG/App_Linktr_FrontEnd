@@ -12,6 +12,7 @@ import {
   Button,
   StyledLink,
 } from "./style";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +24,7 @@ export default function Login() {
     try {
       const { data } = await api.signIn(email, password);
       login(data);
-      //navigation("/");
+      navigation("/");
     } catch (error) {
       console.log(error);
       alert("Algo deu errado, tente novamente em alguns segundos");
