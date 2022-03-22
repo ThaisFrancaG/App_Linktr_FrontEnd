@@ -16,22 +16,28 @@ import {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [buttonStatus, setButton] = useState(false);
   const { login } = useAuth();
   const navigation = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setButton(true);
     if (email.length === 0 || password.length === 0) {
       alert("Favor preencher todos os campos");
     }
     try {
       const { data } = await api.signIn(email, password);
       login(data);
-      navigation("/");
+      navigation("/timeline");
     } catch (error) {
-      console.log(error);
-      alert("Algo deu errado, tente novamente em alguns segundos");
+      if (error.response.status === 401)
+        alert("Email ou senha incorreto, verifique seus dados");
+      else {
+        alert(`Confira seus dados ou tente novamente mais tarde`);
+      }
     }
+    setButton(false);
   }
   return (
     <AuthorizationScreen>
@@ -56,7 +62,9 @@ export default function Login() {
           value={password}
           required
         />
-        <Button type="Log In">Log In</Button>
+        <Button type="Log In" disabled={buttonStatus}>
+          Log In
+        </Button>
         <StyledLink to="/sign-up">First time? Create an account!</StyledLink>
       </Form>
     </AuthorizationScreen>
