@@ -1,8 +1,15 @@
 import React from "react";
-import { Route, Router, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Login from "./pages/Login";
 
 function App() {
-  return "oie";
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/sign-in" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
