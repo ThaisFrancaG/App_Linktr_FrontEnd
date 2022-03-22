@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/userAuth";
+import api from "../../services/api";
 import {
   AuthorizationScreen,
   TitleScreen,
@@ -13,11 +15,19 @@ import {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const navigation = useNavigate();
 
-  console.log(email);
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("submit was called");
+    try {
+      const { data } = await api.signIn(email, password);
+      login(data);
+      //navigation("/");
+    } catch (error) {
+      console.log(error);
+      alert("Algo deu errado, tente novamente em alguns segundos");
+    }
   }
   return (
     <AuthorizationScreen>
