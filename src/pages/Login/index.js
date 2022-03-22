@@ -21,6 +21,9 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (email.length === 0 || password.length === 0) {
+      alert("Favor preencher todos os campos");
+    }
     try {
       const { data } = await api.signIn(email, password);
       login(data);
