@@ -1,7 +1,8 @@
 import styled from "styled-components"
 
 const HeaderComponent = styled.div`
-	position: fixed;
+	position: absolute;
+	z-index: 1000;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -51,10 +52,71 @@ const LogoutButton = styled.button`
 	cursor: pointer;
 `;
 
+const PublishCardContainer = styled.div`
+	width: 40%;
+	background-color: white;
+	position: fixed;
+	top: 200px;
+	display: flex;
+	color: #707070;
+	font-size: 30px;
+	font-family: "Passion One";
+	padding: 10px;
+	padding-left: 20px;
+	border-radius: 15px;
+	@media only screen and (max-width: 430px) {
+		width: 100%;
+		border-radius: 0;
+	}
+`;
+
+const PublishForm = styled.form`
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 10px;
+	.desc_input {
+		height: 70px;
+	}
+`;
+
+const FormInput = styled.input`
+	border: none;
+	background-color: #EFEFEF;
+	margin: 5px 0;
+	height: 30px;
+	border-radius: 8px;
+`;
+
+const FormTextInput = styled.textarea`
+	border: none;
+	background-color: #EFEFEF;
+	margin: 5px 0;
+	height: 30px;
+	border-radius: 8px;
+	resize: none;
+`;
+
+const FormSubmit = styled.input`
+	border: none;
+	background-color: #1877F2;
+	height: 30px;
+	width: 120px;
+	border-radius: 10px;
+	color: white;
+	align-self: flex-end;
+`
+
 export {
 	HeaderComponent,
 	Title,
 	ProfileImg,
 	ProfileComponent,
-	LogoutButton
+	LogoutButton,
+	PublishCardContainer,
+	PublishForm,
+	FormInput,
+	FormSubmit,
+	FormTextInput
 }
