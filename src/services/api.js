@@ -17,5 +17,9 @@ async function signIn(email, password) {
   return token;
 }
 
-const api = { signIn };
+async function signUp(user) {
+  await axios.post(`${BASE_URL}/sign-up`, user);
+}
+
+const api = { signIn, signUp };
 export default api;
