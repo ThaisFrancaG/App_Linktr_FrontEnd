@@ -19,8 +19,11 @@ import {
   InfoContainer,
   PostComment,
   PostUser,
-  FormContainer,
   PostBanner,
+  FormContainer,
+  FormTitle,
+  Input,
+  Button,
 } from "./PostStyle";
 function Header(props) {
   const [showLogout, setActive] = useState(false);
@@ -65,14 +68,50 @@ function Header(props) {
 function Timeline() {
   const { auth } = useAuth();
 
-  //tem que ter um ponto de início para dar o get nas informações de usuário, conferir os roles, e pegar as imagens, além de conferir as informações de back. Nesse caso, talvez seja melhor começar pelo back
+  const [postUrl, setUrl] = useState("");
+  const [comment, setComment] = useState("");
+  const [buttonStatus, setButton] = useState(false);
 
+  //tem que ter um ponto de início para dar o get nas informações de usuário, conferir os roles, e pegar as imagens, além de conferir as informações de back. Nesse caso, talvez seja melhor começar pelo back
+  function sendPost(e) {
+    alert("Chamou aqui");
+    console.log(postUrl);
+    console.log(comment);
+  }
   return (
     <>
       <Header />
       <PostContainer>
         <WriteContainer>
-          <img src="" alt="profile pic" />
+          <ProfileContainer>
+            <img src="" alt="profile pic" />
+          </ProfileContainer>
+
+          <InfoContainer>
+            <FormTitle>What are you going to share today?</FormTitle>
+            <FormContainer onSubmit={sendPost}>
+              <Input
+                inputLabel="url"
+                placeholder="http://..."
+                type="url"
+                onChange={(e) => setUrl(e.target.value)}
+                name="post url"
+                value={postUrl}
+                required
+              />
+              <Input
+                placeholder="Awesome article about #javascript"
+                type="text"
+                onChange={(e) => setComment(e.target.value)}
+                name="post comment"
+                value={comment}
+                required
+              />
+              <Button type="submit" disabled={buttonStatus}>
+                Publish
+              </Button>
+            </FormContainer>
+          </InfoContainer>
         </WriteContainer>
         <ReadContainer>
           <ProfileContainer>
