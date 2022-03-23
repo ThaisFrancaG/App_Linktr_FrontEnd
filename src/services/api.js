@@ -17,5 +17,9 @@ async function signIn(email, password) {
   return token;
 }
 
-const api = { signIn };
+async function logOut(token) {
+  return await axios.delete(`${BASE_URL}/logout`, {data: {token}});
+}
+
+const api = { signIn, logOut };
 export default api;
