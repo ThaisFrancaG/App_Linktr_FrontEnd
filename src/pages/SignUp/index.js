@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../../services/api";
 import {
-  AuthorizationScreen,
+  Container,
   TitleScreen,
   Title,
   SubTitle,
@@ -53,10 +53,15 @@ function SignUp() {
   }
 
   return (
-    <AuthorizationScreen>
+    <Container>
       <TitleScreen>
-        <Title>linkr</Title>
-        <SubTitle>save, share and discover the best links on the web</SubTitle>
+        <div>
+          <Title>linkr</Title>
+          <SubTitle>
+            save, share and discover <br />
+            the best links on the web
+          </SubTitle>
+        </div>
       </TitleScreen>
       <Form onSubmit={handleSignUp}>
         <Input
@@ -96,7 +101,7 @@ function SignUp() {
         </Button>
         <StyledLink to="/">Switch back to login in</StyledLink>
       </Form>
-    </AuthorizationScreen>
+    </Container>
   );
 }
 
