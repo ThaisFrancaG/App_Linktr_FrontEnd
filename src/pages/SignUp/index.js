@@ -32,6 +32,12 @@ function SignUp() {
 
     const user = { ...formData };
 
+    Object.keys(user).forEach((item) => {
+      if (!user[item]) {
+        alert("Todos os campos precisam estar preenchidos");
+      }
+    });
+
     try {
       await api.signUp(user);
       navigate("/");
