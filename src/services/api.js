@@ -21,5 +21,9 @@ async function logOut(token) {
   return await axios.delete(`${BASE_URL}/logout`, {data: {token}});
 }
 
-const api = { signIn, logOut };
+async function getUserData(token) {
+  return await axios.get(`${BASE_URL}/user/${token}`);  
+}
+
+const api = { signIn, logOut, getUserData };
 export default api;

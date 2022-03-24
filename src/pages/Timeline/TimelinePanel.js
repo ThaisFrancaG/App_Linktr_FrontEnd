@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import PublishCard from "./PublishCard";
 import { HeaderComponent, LogoutButton, ProfileComponent, ProfileImg, Title } from './TimelineStyles'
 
-function Header (props) {
+function Header ({ user }) {
 	const [showLogout, setActive] = useState(false);
 	const navigation = useNavigate();
 
@@ -12,18 +13,13 @@ function Header (props) {
 		const token = JSON.parse(localStorage.getItem('auth'));
 		try {
 			await api.logOut(token)
+			localStorage.removeItem('auth')
 		}catch(error) {
-			if (error.response.status === 401){
-				alert("Email ou senha incorreto, verifique seus dados");
-				return
-			}
-			else {
-				alert(`Confira seus dados ou tente novamente mais tarde`);
-				return
-			}
+			alert("Sessão não encontrada")
+			return
 		}
-		localStorage.removeItem('auth')
 		navigation('/')
+		return
 	}
 
 	return (
@@ -31,7 +27,7 @@ function Header (props) {
 			<Title>linktr</Title>
 			<ProfileComponent onClick={() => setActive(!showLogout)}>
 				{showLogout ? <IoIosArrowUp /> : <IoIosArrowDown />}
-				<ProfileImg src="https://hiperideal.vteximg.com.br/arquivos/ids/167660-1000-1000/27502.jpg?v=636615816147030000"></ProfileImg>
+				<ProfileImg src={user?.pictureUrl} />
 			</ProfileComponent>
 			{showLogout ? 
 			<LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
@@ -41,8 +37,41 @@ function Header (props) {
 };
 
 function Timeline () {
+	const navigation = useNavigate();
+	const [user, setUser] = useState({})
 
-	return <Header />
+	async function getUser () {
+		const token = JSON.parse(localStorage.getItem('auth'));
+		if(!token) {
+			alert("Faça Login")
+			navigation('/')
+			return
+		}
+		try {
+			const response = await api.getUserData(token);
+			setUser(response.data)
+		}catch(error) {
+			if (error.response.status === 400){
+				alert("Token Vazio, faça login novamente")
+			}
+			else {
+				alert(`Algo deu errado`);
+			}
+			navigation('/')
+			return
+		}
+	}
+
+	useEffect(() => {
+		getUser()
+	},[])
+
+
+	return (
+	<>
+		<Header user={user}/>
+		<PublishCard user={user}/>
+	</>)
 };
 
 export default Timeline

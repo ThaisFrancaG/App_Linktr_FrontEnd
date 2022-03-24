@@ -1,7 +1,7 @@
 import { FormInput, FormSubmit, FormTextInput, ProfileImg, PublishCardContainer, PublishForm } from "./TimelineStyles";
 import React, { useState } from "react"
 
-export default function PublishCard() {
+export default function PublishCard({ user }) {
 	const [link, setLink] = useState("")
 	const [description, setDesc] = useState("")
 	const [disabled, setDisabled] = useState(false)
@@ -28,7 +28,7 @@ export default function PublishCard() {
 
 	return (
 		<PublishCardContainer>
-			<ProfileImg src="https://hiperideal.vteximg.com.br/arquivos/ids/167660-1000-1000/27502.jpg?v=636615816147030000"/>
+			<ProfileImg src={user?.pictureUrl}/>
 			<PublishForm handleSubmit={e =>handleSubmit(e)}>
 				<label>What are you going to share today?</label>
 				<FormInput 
