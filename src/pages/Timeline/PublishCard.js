@@ -9,11 +9,11 @@ import {
 import React, { useState } from "react";
 import api from "../../services/api";
 
-export default function PublishCard({ user, reloadPosts, setReloadPosts }) {
+export default function PublishCard({ user, setReloadPosts }) {
   const [link, setLink] = useState("");
   const [description, setDesc] = useState("");
   const [disabled, setDisabled] = useState(false);
-  console.log(reloadPosts);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setDisabled(true);

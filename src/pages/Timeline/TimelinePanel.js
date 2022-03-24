@@ -26,6 +26,7 @@ import {
   Input,
   Button,
 } from "./PostStyle";
+import PostsLists from "./PostsItems/PostsList";
 
 function Header({ user }) {
   const [showLogout, setActive] = useState(false);
@@ -66,7 +67,6 @@ function Timeline() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
-
   const location = useLocation();
 
   async function getUser() {
@@ -98,6 +98,7 @@ function Timeline() {
     async function loadPosts() {
       try {
         const { data } = await api.getPublications();
+        setReloadPosts(true);
         setPosts(data);
       } catch (error) {
         alert(
@@ -105,12 +106,11 @@ function Timeline() {
         );
       }
     }
-
+    console.log(reloadPosts);
     setReloadPosts(false);
     loadPosts();
   }, [reloadPosts]);
-
-  console.log(reloadPosts);
+  console.log(posts);
   return (
     <>
       <Header user={user} />
@@ -124,22 +124,7 @@ function Timeline() {
             setReloadPosts={setReloadPosts}
           />
         )}
-        {typeof posts[0] === "string" ? (
-          <>{posts}</>
-        ) : (
-          posts.map((post) => (
-            <ReadContainer>
-              <ProfileContainer>
-                <img src={post.userPic} alt="profile pic" />
-              </ProfileContainer>
-              <InfoContainer>
-                <PostUser>{post.username}</PostUser>
-                <PostComment>{post.description}</PostComment>
-                <PostBanner>{post.link}</PostBanner>
-              </InfoContainer>
-            </ReadContainer>
-          ))
-        )}
+        <PostsLists posts={posts} />
       </PostContainer>
     </>
   );
