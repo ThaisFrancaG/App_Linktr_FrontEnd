@@ -18,17 +18,22 @@ async function signIn(email, password) {
   return token;
 }
 
+async function signUp(user) {
+  await axios.post(`${BASE_URL}/sign-up`, user);
+}
+
 async function logOut(token) {
   return await axios.delete(`${BASE_URL}/logout`, { data: { token } });
 }
 
 async function getUserData(token) {
-  return await axios.get(`${BASE_URL}/user/${token}`);  
+  return await axios.get(`${BASE_URL}/user/${token}`);
 }
 
 async function postPublication(body) {
-  return await axios.post(`${BASE_URL}/publish`, body);  
+  return await axios.post(`${BASE_URL}/publish`, body);
 }
 
-const api = { signIn, logOut, getUserData, postPublication };
+const api = { signIn, signUp, logOut, getUserData, postPublication };
+
 export default api;
