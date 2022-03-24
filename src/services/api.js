@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
+//const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -21,5 +22,9 @@ async function signUp(user) {
   await axios.post(`${BASE_URL}/sign-up`, user);
 }
 
-const api = { signIn, signUp };
+async function logOut(token) {
+  return await axios.delete(`${BASE_URL}/logout`, { data: { token } });
+}
+
+const api = { signIn, signUp, logOut };
 export default api;

@@ -3,6 +3,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Timeline from "./pages/Timeline/TimelinePanel";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/timeline" element={<Timeline />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
