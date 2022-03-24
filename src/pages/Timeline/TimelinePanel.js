@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
+import PublishCard from "./PublishCard";
 import {
   HeaderComponent,
   LogoutButton,
@@ -25,25 +26,23 @@ import {
   Input,
   Button,
 } from "./PostStyle";
-function Header(props) {
+
+
+function Header ({ user }) {
   const [showLogout, setActive] = useState(false);
   const navigation = useNavigate();
 
-  async function handleLogOut() {
-    const token = JSON.parse(localStorage.getItem("auth"));
+  async function handleLogOut () {
+    const token = JSON.parse(localStorage.getItem('auth'));
     try {
-      await api.logOut(token);
-    } catch (error) {
-      if (error.response.status === 401) {
-        alert("Email ou senha incorreto, verifique seus dados");
-        return;
-      } else {
-        alert(`Confira seus dados ou tente novamente mais tarde`);
-        return;
-      }
+      await api.logOut(token)
+      localStorage.removeItem('auth')
+    }catch(error) {
+      alert("Sessão não encontrada")
+      return
     }
-    localStorage.removeItem("auth");
-    navigation("/");
+    navigation('/')
+    return
   }
 
   return (
@@ -51,68 +50,54 @@ function Header(props) {
       <Title>linktr</Title>
       <ProfileComponent onClick={() => setActive(!showLogout)}>
         {showLogout ? <IoIosArrowUp /> : <IoIosArrowDown />}
-        <ProfileImg
-          src="https://hiperideal.vteximg.com.br/arquivos/ids/167660-1000-1000/27502.jpg?v=636615816147030000"
-          alt="profile pic"
-        ></ProfileImg>
+        <ProfileImg src={user?.pictureUrl} />
       </ProfileComponent>
-      {showLogout ? (
-        <LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
-      ) : (
-        <></>
-      )}
+      {showLogout ? 
+      <LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
+      : <></>}
     </HeaderComponent>
-  );
-}
+  )
+};
 
 function Timeline() {
   const { auth } = useAuth();
+  const navigation = useNavigate();
+	const [user, setUser] = useState({})
+	const location = useLocation();
 
-  const [postUrl, setUrl] = useState("");
-  const [comment, setComment] = useState("");
-  const [buttonStatus, setButton] = useState(false);
+	async function getUser () {
+		const token = JSON.parse(localStorage.getItem('auth'));
+		if(!token) {
+			alert("Faça Login")
+			navigation('/')
+			return
+		}
+		try {
+			const response = await api.getUserData(token);
+			setUser(response.data)
+		}catch(error) {
+			if (error.response.status === 400){
+				alert("Token Vazio, faça login novamente")
+			}
+			else {
+				alert(`Algo deu errado`);
+			}
+			navigation('/')
+			return
+		}
+	}
 
-  //tem que ter um ponto de início para dar o get nas informações de usuário, conferir os roles, e pegar as imagens, além de conferir as informações de back. Nesse caso, talvez seja melhor começar pelo back
-  function sendPost(e) {
-    alert("Chamou aqui");
-    console.log(postUrl);
-    console.log(comment);
-  }
+	useEffect(() => {
+		getUser()
+	},[])
+  
   return (
     <>
-      <Header />
+      <Header user={user}/>
       <PostContainer>
-        <WriteContainer>
-          <ProfileContainer>
-            <img src="" alt="profile pic" />
-          </ProfileContainer>
-
-          <InfoContainer>
-            <FormTitle>What are you going to share today?</FormTitle>
-            <FormContainer onSubmit={sendPost}>
-              <Input
-                inputLabel="url"
-                placeholder="http://..."
-                type="url"
-                onChange={(e) => setUrl(e.target.value)}
-                name="post url"
-                value={postUrl}
-                required
-              />
-              <Input
-                placeholder="Awesome article about #javascript"
-                type="text"
-                onChange={(e) => setComment(e.target.value)}
-                name="post comment"
-                value={comment}
-                required
-              />
-              <Button type="submit" disabled={buttonStatus}>
-                Publish
-              </Button>
-            </FormContainer>
-          </InfoContainer>
-        </WriteContainer>
+        {location.pathname !== '/timeline' ?
+        <></> : <PublishCard user={user}/>
+        }
         <ReadContainer>
           <ProfileContainer>
             <img src="" alt="profile pic" />
