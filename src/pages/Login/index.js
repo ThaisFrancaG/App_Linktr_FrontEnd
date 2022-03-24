@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
@@ -39,6 +39,12 @@ export default function Login() {
     }
     setButton(false);
   }
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('auth'));
+    if (token) navigation('/timeline')
+  }, [])
+
   return (
     <AuthorizationScreen>
       <TitleScreen>
