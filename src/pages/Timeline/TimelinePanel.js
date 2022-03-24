@@ -54,6 +54,7 @@ function Timeline() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   async function getUser() {
@@ -85,19 +86,18 @@ function Timeline() {
     async function loadPosts() {
       try {
         const { data } = await api.getPublications();
-        setReloadPosts(true);
         setPosts(data);
+        setLoading(false);
       } catch (error) {
         alert(
           "An error occured while trying to fetch the posts, please refresh the page"
         );
       }
     }
-    console.log(reloadPosts);
     setReloadPosts(false);
     loadPosts();
   }, [reloadPosts]);
-  console.log(posts);
+
   return (
     <>
       <Header user={user} />
@@ -107,11 +107,11 @@ function Timeline() {
         ) : (
           <PublishCard
             user={user}
-            reloadPosts={reloadPosts}
             setReloadPosts={setReloadPosts}
+            setLoading={setLoading}
           />
         )}
-        <PostsLists posts={posts} />
+        {loading ? <>Loading...</> : <PostsLists posts={posts} />}
       </PostContainer>
     </>
   );

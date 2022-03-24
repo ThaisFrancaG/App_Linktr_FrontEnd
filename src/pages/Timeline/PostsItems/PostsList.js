@@ -15,15 +15,13 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 export default function PostsLists({ posts }) {
-  console.log(posts);
-
   function handleClick(link) {
     window.open(link);
   }
   return (
     <>
       {posts.map((post) => (
-        <ReadContainer>
+        <ReadContainer key={post.id}>
           <ProfileContainer>
             <img src={post.userPic} alt="profile pic" />
           </ProfileContainer>

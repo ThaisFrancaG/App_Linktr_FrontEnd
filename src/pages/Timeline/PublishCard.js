@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import api from "../../services/api";
 
-export default function PublishCard({ user, setReloadPosts }) {
+export default function PublishCard({ user, setReloadPosts, setLoading }) {
   const [link, setLink] = useState("");
   const [description, setDesc] = useState("");
   const [disabled, setDisabled] = useState(false);
@@ -27,6 +27,7 @@ export default function PublishCard({ user, setReloadPosts }) {
       setLink("");
       setDesc("");
       setDisabled(false);
+      setLoading(true);
       setReloadPosts(true);
       return;
     } catch (error) {
