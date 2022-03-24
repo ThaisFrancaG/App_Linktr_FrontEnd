@@ -13,7 +13,7 @@ import {
 } from "./style";
 
 function SignUp() {
-  const [buttonStatus, setButton] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,7 +28,7 @@ function SignUp() {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    setButton(true);
+    setIsLoading(true);
 
     const user = { ...formData };
 
@@ -40,13 +40,16 @@ function SignUp() {
 
     try {
       await api.signUp(user);
+      setIsLoading(false);
       navigate("/");
     } catch (error) {
+      if (error.response.status === 409) {
+        alert("E-mail já cadastrado");
+        setIsLoading(false);
+      }
       console.log(error);
       alert("Erro, tente novamente");
     }
-
-    setButton(true);
   }
 
   return (
@@ -88,7 +91,7 @@ function SignUp() {
           value={formData.pictureUrl}
           required
         />
-        <Button type="submit" disabled={buttonStatus}>
+        <Button type="submit" disabled={isLoading}>
           Sign Up
         </Button>
         <StyledLink to="/">Switch back to login in</StyledLink>
