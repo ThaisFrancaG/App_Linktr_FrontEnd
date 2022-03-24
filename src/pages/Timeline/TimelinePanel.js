@@ -27,22 +27,21 @@ import {
   Button,
 } from "./PostStyle";
 
-
-function Header ({ user }) {
+function Header({ user }) {
   const [showLogout, setActive] = useState(false);
   const navigation = useNavigate();
 
-  async function handleLogOut () {
-    const token = JSON.parse(localStorage.getItem('auth'));
+  async function handleLogOut() {
+    const token = JSON.parse(localStorage.getItem("auth"));
     try {
-      await api.logOut(token)
-      localStorage.removeItem('auth')
-    }catch(error) {
-      alert("Sessão não encontrada")
-      return
+      await api.logOut(token);
+      localStorage.removeItem("auth");
+    } catch (error) {
+      alert("Sessão não encontrada");
+      return;
     }
-    navigation('/')
-    return
+    navigation("/");
+    return;
   }
 
   return (
@@ -52,65 +51,95 @@ function Header ({ user }) {
         {showLogout ? <IoIosArrowUp /> : <IoIosArrowDown />}
         <ProfileImg src={user?.pictureUrl} />
       </ProfileComponent>
-      {showLogout ? 
-      <LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
-      : <></>}
+      {showLogout ? (
+        <LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
+      ) : (
+        <></>
+      )}
     </HeaderComponent>
-  )
-};
+  );
+}
 
 function Timeline() {
   const { auth } = useAuth();
   const navigation = useNavigate();
-	const [user, setUser] = useState({})
-	const location = useLocation();
+  const [user, setUser] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [reloadPosts, setReloadPosts] = useState(false);
 
-	async function getUser () {
-		const token = JSON.parse(localStorage.getItem('auth'));
-		if(!token) {
-			alert("Faça Login")
-			navigation('/')
-			return
-		}
-		try {
-			const response = await api.getUserData(token);
-			setUser(response.data)
-		}catch(error) {
-			if (error.response.status === 400){
-				alert("Token Vazio, faça login novamente")
-			}
-			else {
-				alert(`Algo deu errado`);
-			}
-			navigation('/')
-			return
-		}
-	}
+  const location = useLocation();
 
-	useEffect(() => {
-		getUser()
-	},[])
-  
+  async function getUser() {
+    const token = JSON.parse(localStorage.getItem("auth"));
+    if (!token) {
+      alert("Faça Login");
+      navigation("/");
+      return;
+    }
+    try {
+      const response = await api.getUserData(token);
+      setUser(response.data);
+    } catch (error) {
+      if (error.response.status === 400) {
+        alert("Token Vazio, faça login novamente");
+      } else {
+        alert(`Algo deu errado`);
+      }
+      navigation("/");
+      return;
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const { data } = await api.getPublications();
+        setPosts(data);
+      } catch (error) {
+        alert(
+          "An error occured while trying to fetch the posts, please refresh the page"
+        );
+      }
+    }
+
+    setReloadPosts(false);
+    loadPosts();
+  }, [reloadPosts]);
+
+  console.log(reloadPosts);
   return (
     <>
-      <Header user={user}/>
+      <Header user={user} />
       <PostContainer>
-        {location.pathname !== '/timeline' ?
-        <></> : <PublishCard user={user}/>
-        }
-        <ReadContainer>
-          <ProfileContainer>
-            <img src="" alt="profile pic" />
-          </ProfileContainer>
-          <InfoContainer>
-            <PostUser>Titulo</PostUser>
-            <PostComment>
-              SubTitulo SubTitulo SubTitul SubTitul SubTitul SubTitul SubTitul
-              SubTitul SubTitul SubTitul SubTitul SubTitul SubTitul SubTitul
-            </PostComment>
-            <PostBanner>ahaaaaaa</PostBanner>
-          </InfoContainer>
-        </ReadContainer>
+        {location.pathname !== "/timeline" ? (
+          <></>
+        ) : (
+          <PublishCard
+            user={user}
+            reloadPosts={reloadPosts}
+            setReloadPosts={setReloadPosts}
+          />
+        )}
+        {typeof posts[0] === "string" ? (
+          <>{posts}</>
+        ) : (
+          posts.map((post) => (
+            <ReadContainer>
+              <ProfileContainer>
+                <img src={post.userPic} alt="profile pic" />
+              </ProfileContainer>
+              <InfoContainer>
+                <PostUser>{post.username}</PostUser>
+                <PostComment>{post.description}</PostComment>
+                <PostBanner>{post.link}</PostBanner>
+              </InfoContainer>
+            </ReadContainer>
+          ))
+        )}
       </PostContainer>
     </>
   );
