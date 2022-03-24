@@ -34,10 +34,12 @@ const LinkDesc = styled.span`
   font-size: 11px;
   line-height: 13.5px;
   color: #9b9595;
+  margin-top: 5px;
 `;
 const LinkUrl = styled.span`
   font-size: 11px;
   line-height: 13.5px;
+  margin-top: 13px;
 `;
 
 const LinkImage = styled.figure`

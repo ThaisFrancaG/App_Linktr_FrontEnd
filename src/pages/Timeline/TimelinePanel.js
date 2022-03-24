@@ -12,20 +12,7 @@ import {
   Title,
 } from "./TimelineStyles";
 
-import {
-  PostContainer,
-  WriteContainer,
-  ReadContainer,
-  ProfileContainer,
-  InfoContainer,
-  PostComment,
-  PostUser,
-  PostBanner,
-  FormContainer,
-  FormTitle,
-  Input,
-  Button,
-} from "./PostStyle";
+import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 
 function Header({ user }) {

@@ -1,15 +1,9 @@
 import {
-  PostContainer,
-  WriteContainer,
   ReadContainer,
   ProfileContainer,
   InfoContainer,
   PostComment,
   PostUser,
-  FormContainer,
-  FormTitle,
-  Input,
-  Button,
 } from "../PostStyle";
 
 import {
@@ -22,6 +16,10 @@ import {
 } from "./SnippetStyle";
 export default function PostsLists({ posts }) {
   console.log(posts);
+
+  function handleClick(link) {
+    window.open(link);
+  }
   return (
     <>
       {posts.map((post) => (
@@ -32,7 +30,7 @@ export default function PostsLists({ posts }) {
           <InfoContainer>
             <PostUser>{post.username}</PostUser>
             <PostComment>{post.description}</PostComment>
-            <PostBanner>
+            <PostBanner onClick={() => handleClick(post.link)}>
               <LinkInfo>
                 <LinkTitle>{post.linkName}</LinkTitle>
                 <LinkDesc>{post.linkDesc}</LinkDesc>
