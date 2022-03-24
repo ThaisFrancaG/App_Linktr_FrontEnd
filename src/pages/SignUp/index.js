@@ -78,7 +78,7 @@ function SignUp() {
           placeholder="picture url"
           type="text"
           onChange={(e) => handleChange(e)}
-          name="picture url"
+          name="pictureUrl"
           value={formData.pictureUrl}
           required
         />

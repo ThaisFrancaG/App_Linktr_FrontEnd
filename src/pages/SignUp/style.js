@@ -71,6 +71,8 @@ const Button = styled.button`
 
   color: #ffffff;
   font-family: "Oswald";
+
+  cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`
