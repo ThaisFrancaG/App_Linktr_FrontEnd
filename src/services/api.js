@@ -25,5 +25,9 @@ async function getUserData(token) {
   return await axios.get(`${BASE_URL}/user/${token}`);  
 }
 
-const api = { signIn, logOut, getUserData };
+async function postPublication(body) {
+  return await axios.post(`${BASE_URL}/publish`, body);  
+}
+
+const api = { signIn, logOut, getUserData, postPublication };
 export default api;

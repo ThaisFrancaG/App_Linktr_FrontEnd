@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
 import { HeaderComponent, LogoutButton, ProfileComponent, ProfileImg, Title } from './TimelineStyles'
@@ -39,6 +39,7 @@ function Header ({ user }) {
 function Timeline () {
 	const navigation = useNavigate();
 	const [user, setUser] = useState({})
+	const location = useLocation();
 
 	async function getUser () {
 		const token = JSON.parse(localStorage.getItem('auth'));
@@ -70,7 +71,10 @@ function Timeline () {
 	return (
 	<>
 		<Header user={user}/>
-		<PublishCard user={user}/>
+		{location.pathname !== '/timeline' ?
+			<></> : <PublishCard user={user}/>
+		}
+		
 	</>)
 };
 

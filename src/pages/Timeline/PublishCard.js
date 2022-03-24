@@ -1,5 +1,6 @@
 import { FormInput, FormSubmit, FormTextInput, ProfileImg, PublishCardContainer, PublishForm } from "./TimelineStyles";
 import React, { useState } from "react"
+import api from "../../services/api";
 
 export default function PublishCard({ user }) {
 	const [link, setLink] = useState("")
@@ -7,29 +8,32 @@ export default function PublishCard({ user }) {
 	const [disabled, setDisabled] = useState(false)
 
 	async function handleSubmit(e) {
-		e.preventDefault()
+		e.preventDefault();
 		setDisabled(true);
 		if(!link) {
 			setDisabled(false);
 			alert("Preencha o Link de publicação");
 			return
-		}
-
+		};
 		try {
-			
+			await api.postPublication({link, description, id: user.id})
+			setLink("")
+			setDesc("")
+			setDisabled(false);
+			return 
 		}catch(error) {
 			alert("Houve um erro ao publicar seu link");
 			console.error(error);
 			setDisabled(false);
 			return
-		}
-
+		};
+		
 	}
 
 	return (
 		<PublishCardContainer>
 			<ProfileImg src={user?.pictureUrl}/>
-			<PublishForm handleSubmit={e =>handleSubmit(e)}>
+			<PublishForm onSubmit={e =>handleSubmit(e)}>
 				<label>What are you going to share today?</label>
 				<FormInput 
 					type="text"
