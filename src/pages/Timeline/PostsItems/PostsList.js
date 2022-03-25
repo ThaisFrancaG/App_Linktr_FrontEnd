@@ -6,7 +6,7 @@ import {
   PostComment,
   PostUser,
 } from "../PostStyle";
-
+import LikesDisplay from "./LikesPost";
 import {
   PostBanner,
   LinkImage,
@@ -15,6 +15,7 @@ import {
   LinkDesc,
   LinkUrl,
 } from "./SnippetStyle";
+
 export default function PostsLists({ posts }) {
   const navigation = useNavigate();
 
@@ -24,8 +25,8 @@ export default function PostsLists({ posts }) {
 
   function handleChange(e, post) {
     e.preventDefault();
-    navigation(`/user/${post.userId}`)
-    window.location.reload()
+    navigation(`/user/${post.userId}`);
+    window.location.reload();
   }
 
   return (
@@ -34,9 +35,12 @@ export default function PostsLists({ posts }) {
         <ReadContainer key={post.id}>
           <ProfileContainer>
             <img src={post.userPic} alt="profile pic" />
+            <LikesDisplay />
           </ProfileContainer>
           <InfoContainer>
-            <PostUser onClick={(e) => handleChange(e, post)}>{post.username}</PostUser>
+            <PostUser onClick={(e) => handleChange(e, post)}>
+              {post.username}
+            </PostUser>
             <PostComment>{post.description}</PostComment>
             <PostBanner onClick={() => handleClick(post.link)}>
               <LinkInfo>
@@ -44,7 +48,6 @@ export default function PostsLists({ posts }) {
                 <LinkDesc>{post.linkDesc}</LinkDesc>
                 <LinkUrl>{post.link}</LinkUrl>
               </LinkInfo>
-
               <LinkImage>
                 <img src={post.linkBanner} alt="profile pic" />
               </LinkImage>
