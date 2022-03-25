@@ -27,7 +27,7 @@ async function logOut(token) {
 }
 
 async function getUserData(token) {
-  return await axios.get(`${BASE_URL}/user/${token}`);
+  return await axios.get(`${BASE_URL}/user-data/${token}`);
 }
 
 async function postPublication(body) {
@@ -38,6 +38,10 @@ async function getPublications() {
   return await axios.get(`${BASE_URL}/timeline`);
 }
 
+async function getUserPublications(id) {
+  return await axios.get(`${BASE_URL}/user/${id}`)
+}
+
 const api = {
   signIn,
   signUp,
@@ -45,6 +49,7 @@ const api = {
   getUserData,
   postPublication,
   getPublications,
+  getUserPublications
 };
 
 export default api;

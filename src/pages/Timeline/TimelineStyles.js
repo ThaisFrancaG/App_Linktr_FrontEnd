@@ -21,6 +21,7 @@ const Title = styled.span`
 `;
 
 const ProfileImg = styled.img`
+  width: 50px;
   border-radius: 50%;
   height: 50px;
 `;
@@ -107,6 +108,12 @@ const FormSubmit = styled.input`
 	align-self: flex-end;
 `;
 
+const TimelineTitle = styled.span`
+	font-size: 45px;
+	font-weight: bold;
+	font-family: "Passion One";
+`
+
 export {
 	HeaderComponent,
 	Title,
@@ -117,5 +124,6 @@ export {
 	PublishForm,
 	FormInput,
 	FormSubmit,
-	FormTextInput
+	FormTextInput,
+	TimelineTitle
 };

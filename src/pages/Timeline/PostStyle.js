@@ -8,7 +8,7 @@ const PostContainer = styled.main`
   padding-top: 80px;
   row-gap: 30px;
   width: 611px;
-
+  margin-top: 100px;
   font-family: "Lato";
 `;
 const WriteContainer = styled.div`

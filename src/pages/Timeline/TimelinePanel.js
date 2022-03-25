@@ -9,6 +9,7 @@ import {
   LogoutButton,
   ProfileComponent,
   ProfileImg,
+  TimelineTitle,
   Title,
 } from "./TimelineStyles";
 
@@ -76,32 +77,43 @@ function Timeline() {
       navigation("/");
       return;
     }
-  }
+  };
+
+  async function loadPosts() {
+    const path = location.pathname;
+    let response;
+    try {
+      if (path.includes("/user/")) {
+        const id = path.split("/")[2];
+        response = await api.getUserPublications(Number(id))
+      } else {
+        response = await api.getPublications();
+      }
+      setPosts(response.data);
+      setLoading(false);
+    } catch (error) {
+      alert(
+        "An error occured while trying to fetch the posts, please refresh the page"
+      );
+    }
+  };
 
   useEffect(() => {
     getUser();
   }, []);
 
   useEffect(() => {
-    async function loadPosts() {
-      try {
-        const { data } = await api.getPublications();
-        setPosts(data);
-        setLoading(false);
-      } catch (error) {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-      }
-    }
+    loadPosts()
     setReloadPosts(false);
-    loadPosts();
   }, [reloadPosts]);
 
   return (
     <>
       <Header user={user} />
       <PostContainer>
+        <TimelineTitle>
+          {location.pathname !== "/timeline" ? `${posts[0]?.username}'s posts` : "Timeline"}
+        </TimelineTitle>
         {location.pathname !== "/timeline" ? (
           <></>
         ) : (
