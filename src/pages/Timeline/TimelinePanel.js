@@ -1,53 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import {
-  HeaderComponent,
-  LogoutButton,
-  ProfileComponent,
-  ProfileImg,
-  TimelineTitle,
-  Title,
-} from "./TimelineStyles";
+import { TimelineTitle } from "./TimelineStyles";
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
-
-function Header({ user }) {
-  const [showLogout, setActive] = useState(false);
-  const navigation = useNavigate();
-
-  async function handleLogOut() {
-    const token = JSON.parse(localStorage.getItem("auth"));
-    try {
-      await api.logOut(token);
-      localStorage.removeItem("auth");
-    } catch (error) {
-      alert("Sessão não encontrada");
-      return;
-    }
-    navigation("/");
-    return;
-  }
-
-  return (
-    <HeaderComponent>
-      <Title>linktr</Title>
-      <ProfileComponent onClick={() => setActive(!showLogout)}>
-        {showLogout ? <IoIosArrowUp /> : <IoIosArrowDown />}
-        <ProfileImg src={user?.pictureUrl} />
-      </ProfileComponent>
-      {showLogout ? (
-        <LogoutButton onClick={() => handleLogOut()}>Logout</LogoutButton>
-      ) : (
-        <></>
-      )}
-    </HeaderComponent>
-  );
-}
+import Header from "./Header";
 
 function Timeline() {
   const { auth } = useAuth();

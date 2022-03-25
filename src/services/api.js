@@ -14,7 +14,6 @@ function authData(token) {
 async function signIn(email, password) {
   const loginInfo = { email: email, password: password };
   const token = await axios.post(`${BASE_URL}/login`, loginInfo);
-  console.log(token);
   return token;
 }
 
@@ -42,6 +41,10 @@ async function getUserPublications(id) {
   return await axios.get(`${BASE_URL}/user/${id}`)
 }
 
+async function getUsers() {
+  return await axios.get(`${BASE_URL}/users`)
+}
+
 const api = {
   signIn,
   signUp,
@@ -49,7 +52,8 @@ const api = {
   getUserData,
   postPublication,
   getPublications,
-  getUserPublications
+  getUserPublications,
+  getUsers
 };
 
 export default api;

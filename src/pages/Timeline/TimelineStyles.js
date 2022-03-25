@@ -1,3 +1,4 @@
+import Select from "react-select";
 import styled from "styled-components";
 
 const HeaderComponent = styled.div`
@@ -112,7 +113,45 @@ const TimelineTitle = styled.span`
 	font-size: 45px;
 	font-weight: bold;
 	font-family: "Passion One";
-`
+`;
+
+const SearchContainer = styled(Select)`
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  align-items:center;
+  * {
+	  box-shadow: none !important;
+	  border: none !important;
+  }
+  svg {
+	  margin: 10px;
+  }
+  div {
+	  margin: 0;
+	  padding: 0;
+  }
+  div:last-child {
+	  border-bottom-left-radius: 10px;
+	  border-bottom-right-radius: 10px;
+  }
+`;
+
+const Users = styled.div`
+  display: flex;
+  align-items:center;
+  font-size: 22px;
+  background-color: #E7E7E7;
+  box-shadow: none;
+  width: 100%;
+  padding: 10px !important;
+  span {
+    margin-left: 10px;
+  }
+`;
 
 export {
 	HeaderComponent,
@@ -125,5 +164,7 @@ export {
 	FormInput,
 	FormSubmit,
 	FormTextInput,
-	TimelineTitle
+	TimelineTitle,
+	SearchContainer,
+  	Users,
 };
