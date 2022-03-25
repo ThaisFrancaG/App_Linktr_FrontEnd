@@ -111,6 +111,7 @@ const PostUser = styled.span`
   font-weight: 400;
   font-size: 19px;
   line-height: 23px;
+  margin-bottom: 10px;
 `;
 
 const PostComment = styled.span`
@@ -122,16 +123,6 @@ const PostComment = styled.span`
   color: #b7b7b7;
 `;
 
-const PostBanner = styled.article`
-  height: 155px;
-  width: 500px;
-  border: 1px solid #4d4d4d;
-  border-radius: 16px;
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-`;
 export {
   PostContainer,
   WriteContainer,
@@ -140,7 +131,6 @@ export {
   InfoContainer,
   PostComment,
   PostUser,
-  PostBanner,
   FormContainer,
   FormTitle,
   Input,
