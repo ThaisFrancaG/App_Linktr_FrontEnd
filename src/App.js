@@ -13,6 +13,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/user/:id" element={<Timeline />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

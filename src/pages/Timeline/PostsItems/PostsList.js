@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   ReadContainer,
   ProfileContainer,
@@ -15,9 +16,18 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 export default function PostsLists({ posts }) {
+  const navigation = useNavigate();
+
   function handleClick(link) {
     window.open(link);
   }
+
+  function handleChange(e, post) {
+    e.preventDefault();
+    navigation(`/user/${post.userId}`)
+    window.location.reload()
+  }
+
   return (
     <>
       {posts.map((post) => (
@@ -26,7 +36,7 @@ export default function PostsLists({ posts }) {
             <img src={post.userPic} alt="profile pic" />
           </ProfileContainer>
           <InfoContainer>
-            <PostUser>{post.username}</PostUser>
+            <PostUser onClick={(e) => handleChange(e, post)}>{post.username}</PostUser>
             <PostComment>{post.description}</PostComment>
             <PostBanner onClick={() => handleClick(post.link)}>
               <LinkInfo>
