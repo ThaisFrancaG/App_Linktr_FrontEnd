@@ -33,22 +33,39 @@ async function postPublication(body) {
   return await axios.post(`${BASE_URL}/publish`, body);
 }
 
-async function getPublications() {
-  return await axios.get(`${BASE_URL}/timeline`);
+async function getPublications(token) {
+  const config = authData(token);
+  return await axios.get(`${BASE_URL}/timeline`, config);
 }
 
 async function getUserPublications(id) {
   return await axios.get(`${BASE_URL}/user/${id}`);
+<<<<<<< HEAD
 }
 
 async function getHashtagPosts(hashtag) {
   return await axios.get(`${BASE_URL}/hashtag/${hashtag}`);
+=======
+>>>>>>> main
 }
+
 
 async function getUsers(name) {
   return await axios.get(`${BASE_URL}/users?name=${name}`);
 }
 
+async function toggleLike(token, postId, liked) {
+  return await axios.post(`${BASE_URL}/likes`, {
+    postId: postId,
+    token: token,
+    liked: liked,
+  });
+}
+
+async function getLikes(token) {
+  const config = authData(token);
+  return await axios.get(`${BASE_URL}/likes`, config);
+}
 const api = {
   signIn,
   signUp,
@@ -58,7 +75,12 @@ const api = {
   getPublications,
   getUserPublications,
   getUsers,
+<<<<<<< HEAD
   getHashtagPosts,
+=======
+  toggleLike,
+  getLikes,
+>>>>>>> main
 };
 
 export default api;
