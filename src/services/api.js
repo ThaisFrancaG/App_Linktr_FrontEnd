@@ -40,15 +40,11 @@ async function getPublications(token) {
 
 async function getUserPublications(id) {
   return await axios.get(`${BASE_URL}/user/${id}`);
-<<<<<<< HEAD
 }
 
 async function getHashtagPosts(hashtag) {
   return await axios.get(`${BASE_URL}/hashtag/${hashtag}`);
-=======
->>>>>>> main
 }
-
 
 async function getUsers(name) {
   return await axios.get(`${BASE_URL}/users?name=${name}`);
@@ -75,12 +71,9 @@ const api = {
   getPublications,
   getUserPublications,
   getUsers,
-<<<<<<< HEAD
   getHashtagPosts,
-=======
   toggleLike,
   getLikes,
->>>>>>> main
 };
 
 export default api;
