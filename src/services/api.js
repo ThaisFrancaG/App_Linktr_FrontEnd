@@ -41,12 +41,12 @@ async function getUserPublications(id) {
   return await axios.get(`${BASE_URL}/user/${id}`);
 }
 
-async function getUsers() {
-  return await axios.get(`${BASE_URL}/users`);
-}
-
 async function getHashtagPosts(hashtag) {
   return await axios.get(`${BASE_URL}/hashtag/${hashtag}`);
+}
+
+async function getUsers(name) {
+  return await axios.get(`${BASE_URL}/users?name=${name}`);
 }
 
 const api = {
