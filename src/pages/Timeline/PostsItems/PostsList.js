@@ -18,7 +18,7 @@ import {
 
 export default function PostsLists({ posts }) {
   const navigation = useNavigate();
-
+  console.log(posts);
   function handleClick(link) {
     window.open(link);
   }
@@ -35,7 +35,11 @@ export default function PostsLists({ posts }) {
         <ReadContainer key={post.id}>
           <ProfileContainer>
             <img src={post.userPic} alt="profile pic" />
-            <LikesDisplay />
+            <LikesDisplay
+              postId={post.id}
+              likesNumber={post.likes_count}
+              likedByUser={post.likedByUser}
+            />
           </ProfileContainer>
           <InfoContainer>
             <PostUser onClick={(e) => handleChange(e, post)}>

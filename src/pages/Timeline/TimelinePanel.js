@@ -47,7 +47,7 @@ function Timeline() {
         const id = path.split("/")[2];
         response = await api.getUserPublications(Number(id));
       } else {
-        response = await api.getPublications();
+        response = await api.getPublications(auth);
       }
       setPosts(response.data);
       setLoading(false);
