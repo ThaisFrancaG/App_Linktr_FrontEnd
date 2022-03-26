@@ -30,7 +30,7 @@ export default function PostsLists({ posts }) {
 
   return (
     <>
-      {posts.map((post) => (
+      {posts[0].id? posts.map((post) => (
         <ReadContainer key={post.id}>
           <ProfileContainer>
             <img src={post.userPic} alt="profile pic" />
@@ -51,7 +51,7 @@ export default function PostsLists({ posts }) {
             </PostBanner>
           </InfoContainer>
         </ReadContainer>
-      ))}
+      )) : <></>}
     </>
   );
 }

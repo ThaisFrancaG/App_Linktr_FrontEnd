@@ -1,4 +1,4 @@
-import Select from "react-select";
+import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
 
 const HeaderComponent = styled.div`
@@ -115,7 +115,7 @@ const TimelineTitle = styled.span`
 	font-family: "Passion One";
 `;
 
-const SearchContainer = styled(Select)`
+const SearchContainer = styled.div`
   width: 50%;
   height: 50%;
   background-color: white;
@@ -140,7 +140,12 @@ const SearchContainer = styled(Select)`
   }
 `;
 
-const Users = styled.div`
+const DebounceContainer = styled(DebounceInput)`
+	width: 100%;
+	height: 100%;
+`
+
+const Users = styled.ul`
   display: flex;
   align-items:center;
   font-size: 22px;
@@ -148,6 +153,10 @@ const Users = styled.div`
   box-shadow: none;
   width: 100%;
   padding: 10px !important;
+
+  :hover {
+	  filter: brightness(90%);
+  }
   span {
     margin-left: 10px;
   }
@@ -167,4 +176,5 @@ export {
 	TimelineTitle,
 	SearchContainer,
   	Users,
+	DebounceContainer,
 };
