@@ -37,7 +37,7 @@ function Timeline() {
       navigation("/");
       return;
     }
-  };
+  }
 
   async function loadPosts() {
     const path = location.pathname;
@@ -45,9 +45,9 @@ function Timeline() {
     try {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
-        response = await api.getUserPublications(Number(id))
+        response = await api.getUserPublications(Number(id));
       } else {
-        response = await api.getPublications();
+        response = await api.getPublications(auth);
       }
       setPosts(response.data);
       setLoading(false);
@@ -56,14 +56,14 @@ function Timeline() {
         "An error occured while trying to fetch the posts, please refresh the page"
       );
     }
-  };
+  }
 
   useEffect(() => {
     getUser();
   }, []);
 
   useEffect(() => {
-    loadPosts()
+    loadPosts();
     setReloadPosts(false);
   }, [reloadPosts]);
 
@@ -72,7 +72,9 @@ function Timeline() {
       <Header user={user} />
       <PostContainer>
         <TimelineTitle>
-          {location.pathname !== "/timeline" ? `${posts[0]?.username}'s posts` : "Timeline"}
+          {location.pathname !== "/timeline"
+            ? `${posts[0]?.username}'s posts`
+            : "Timeline"}
         </TimelineTitle>
         {location.pathname !== "/timeline" ? (
           <></>

@@ -85,13 +85,15 @@ const ReadContainer = styled.article`
 const ProfileContainer = styled.figure`
   width: 90px;
   display: flex;
-  justify-content: center;
-  align-items: start;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   img {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 20px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
