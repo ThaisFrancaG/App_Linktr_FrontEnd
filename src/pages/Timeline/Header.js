@@ -53,12 +53,19 @@ function Header({ user }) {
 		setShowList(true)
 	};
 
-	const handleClick = (e) => {
+	function handleClick (e) {
 		if (ref.current  && !ref.current.contains(e.target)) {
 			setSelected("")
 			setShowList(false)
 		}
 	};
+
+	function goToUser ({id}) {
+		setSelected("");
+		setShowList(false);
+		navigation(`/user/${id}`);
+		window.location.reload()
+	}
 
 	useEffect(() => {
 		getUsers()
@@ -83,7 +90,9 @@ function Header({ user }) {
 					onChange={(e) => handleChange(e)}
 				/>
 				{showList && users?.map((profile,index) => (
-					<Users key={`profile-${index}`}><ProfileImg src={profile.pictureUrl} /><span>{profile.username}</span></Users>
+					<Users key={`profile-${index}`} onClick={() => goToUser(profile)}>
+						<ProfileImg src={profile.pictureUrl} /><span>{profile.username}</span>
+					</Users>
 				))}
 			</SearchContainer>
 			<ProfileComponent onClick={() => setActive(!showLogout)}>
