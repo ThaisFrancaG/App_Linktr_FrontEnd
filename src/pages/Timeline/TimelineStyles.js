@@ -1,18 +1,24 @@
 import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
-
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 const HeaderComponent = styled.div`
-	position: absolute;
-	z-index: 1000;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	top: 0;
-	left: 0;
-	height: 70px;
-	width: 100vw;
-	padding: 0 20px;
-	background-color: #151515;
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100vw;
+  padding: 0 20px;
+  background-color: #151515;
+  @media (max-width: 375px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.span`
@@ -25,6 +31,9 @@ const ProfileImg = styled.img`
   width: 50px;
   border-radius: 50%;
   height: 50px;
+  @media (max-width: 375px) {
+    display: none;
+  }
 `;
 
 const ProfileComponent = styled.div`
@@ -55,64 +64,64 @@ const LogoutButton = styled.button`
 `;
 
 const PublishCardContainer = styled.div`
-	width: 611px;
-	background-color: white;
-	top: 200px;
-	display: flex;
-	color: #707070;
-	font-size: 30px;
-	font-family: "Passion One";
-	padding: 10px;
-	padding-left: 20px;
-	border-radius: 15px;
-	@media only screen and (max-width: 430px) {
-		width: 100%;
-		border-radius: 0;
-	}
+  width: 611px;
+  background-color: white;
+  top: 200px;
+  display: flex;
+  color: #707070;
+  font-size: 30px;
+  font-family: "Passion One";
+  padding: 10px;
+  padding-left: 20px;
+  border-radius: 15px;
+  @media only screen and (max-width: 430px) {
+    width: 100%;
+    border-radius: 0;
+  }
 `;
 
 const PublishForm = styled.form`
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	margin: 10px;
-	.desc_input {
-		height: 70px;
-	}
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px;
+  .desc_input {
+    height: 70px;
+  }
 `;
 
 const FormInput = styled.input`
-	border: none;
-	background-color: #EFEFEF;
-	margin: 5px 0;
-	height: 30px;
-	border-radius: 8px;
+  border: none;
+  background-color: #efefef;
+  margin: 5px 0;
+  height: 30px;
+  border-radius: 8px;
 `;
 
 const FormTextInput = styled.textarea`
-	border: none;
-	background-color: #EFEFEF;
-	margin: 5px 0;
-	height: 30px;
-	border-radius: 8px;
-	resize: none;
+  border: none;
+  background-color: #efefef;
+  margin: 5px 0;
+  height: 30px;
+  border-radius: 8px;
+  resize: none;
 `;
 
 const FormSubmit = styled.input`
-	border: none;
-	background-color: #1877F2;
-	height: 30px;
-	width: 120px;
-	border-radius: 10px;
-	color: white;
-	align-self: flex-end;
+  border: none;
+  background-color: #1877f2;
+  height: 30px;
+  width: 120px;
+  border-radius: 10px;
+  color: white;
+  align-self: flex-end;
 `;
 
 const TimelineTitle = styled.span`
-	font-size: 45px;
-	font-weight: bold;
-	font-family: "Passion One";
+  font-size: 45px;
+  font-weight: bold;
+  font-family: "Passion One";
 `;
 
 const SearchContainer = styled.div`
@@ -121,78 +130,84 @@ const SearchContainer = styled.div`
   background-color: white;
   border: none;
   color: black;
-  align-items:center;
+  align-items: center;
   * {
-	  box-shadow: none !important;
-	  border: none !important;
+    box-shadow: none !important;
+    border: none !important;
   }
   svg {
-	  margin: 10px;
+    margin: 10px;
   }
   div {
-	  margin: 0;
-	  padding: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  div:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 `;
 
 const DebounceContainer = styled(DebounceInput)`
-	width: 95%;
-	height: 100%;
-	border-top-left-radius: 10px;
-	:focus {
-		outline: none;
-	}
-`
+  width: 95%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  :focus {
+    outline: none;
+  }
+`;
 
 const Users = styled.ul`
   display: flex;
-  align-items:center;
+  align-items: center;
   font-size: 22px;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   box-shadow: none;
   width: 100%;
   padding: 10px !important;
 
   :hover {
-	filter: brightness(90%);
+    filter: brightness(90%);
   }
   span {
     margin-left: 10px;
   }
   :last-child {
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 `;
 
 const SearchBar = styled.div`
-	display: flex;
-  	flex-direction: row;
-	width: 100%;
-	height: 100%;
-`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+`;
 
 const SearchIcon = styled.div`
-	width: calc(5% - 1px);
-	min-width: 35px;
-	border-left: 1px solid gray !important;
-`
+  width: calc(5% - 1px);
+  min-width: 35px;
+  border-left: 1px solid gray !important;
+`;
 
 export {
-	HeaderComponent,
-	Title,
-	ProfileImg,
-	ProfileComponent,
-	LogoutButton,
-	PublishCardContainer,
-	PublishForm,
-	FormInput,
-	FormSubmit,
-	FormTextInput,
-	TimelineTitle,
-	SearchContainer,
-  	Users,
-	DebounceContainer,
-	SearchIcon,
-	SearchBar
+  Container,
+  HeaderComponent,
+  Title,
+  ProfileImg,
+  ProfileComponent,
+  LogoutButton,
+  PublishCardContainer,
+  PublishForm,
+  FormInput,
+  FormSubmit,
+  FormTextInput,
+  TimelineTitle,
+  SearchContainer,
+  Users,
+  DebounceContainer,
+  SearchIcon,
+  SearchBar,
 };

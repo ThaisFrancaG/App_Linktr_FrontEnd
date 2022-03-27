@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import { TimelineTitle } from "./TimelineStyles";
+import { Container, TimelineTitle } from "./TimelineStyles";
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
@@ -72,7 +72,7 @@ function Timeline() {
   }, [reloadPosts]);
 
   return (
-    <>
+    <Container>
       <Header user={user} />
       <PostContainer>
         <TimelineTitle>
@@ -91,7 +91,7 @@ function Timeline() {
         )}
         {loading ? <>Loading...</> : <PostsLists posts={posts} user={user} loadPosts={loadPosts} />}
       </PostContainer>
-    </>
+    </Container>
   );
 }
 

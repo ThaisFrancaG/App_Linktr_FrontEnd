@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/UserAuth/Login/index";
+import SignUp from "./pages/UserAuth/SignUp/index";
 import Timeline from "./pages/Timeline/TimelinePanel";
 
 function App() {
