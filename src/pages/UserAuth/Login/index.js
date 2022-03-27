@@ -29,6 +29,7 @@ export default function Login() {
     try {
       const { data } = await api.signIn(email, password);
       login(data);
+      console.log(data);
       navigation("/timeline");
     } catch (error) {
       if (error.response.status === 401)
@@ -72,7 +73,7 @@ export default function Login() {
           value={password}
           required
         />
-        <Button type="Log In" disabled={buttonStatus}>
+        <Button type="submit" disabled={buttonStatus}>
           Log In
         </Button>
         <StyledLink to="/sign-up">First time? Create an account!</StyledLink>

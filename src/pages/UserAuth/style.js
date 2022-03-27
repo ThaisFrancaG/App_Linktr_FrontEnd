@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Container = styled.main`
   width: 100vw;
-  height: 100%;
+  height: 100vh;
 
   display: flex;
   flex-direction: row;
@@ -13,8 +13,7 @@ const Container = styled.main`
 
   @media (max-width: 375px) {
     flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: start;
   }
 `;
 const TitleScreen = styled.div`
@@ -90,7 +89,10 @@ const Form = styled.form`
   padding: 0 51px 0 55px;
 
   @media (max-width: 375px) {
+    width: 100%;
     margin-top: 40px;
+    justify-content: start;
+    padding: 0px;
   }
 `;
 
@@ -114,6 +116,7 @@ const Input = styled.input`
     height: 55px;
     font-size: 22px;
     line-height: 32px;
+    border-radius: 0px;
   }
 `;
 
