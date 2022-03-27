@@ -10,6 +10,11 @@ const PostContainer = styled.main`
   width: 611px;
   margin-top: 100px;
   font-family: "Lato";
+  overflow: hidden;
+  @media (max-width: 375px) {
+    width: 100%;
+    padding-top: 0px;
+  }
 `;
 const WriteContainer = styled.div`
   height: 218px;
@@ -20,6 +25,8 @@ const WriteContainer = styled.div`
   border-radius: 16px;
   padding: 20px 18px;
   color: #707070;
+
+  background-color: blue;
 `;
 
 const FormContainer = styled.form`
@@ -80,6 +87,10 @@ const ReadContainer = styled.article`
   border-radius: 16px;
   padding: 20px;
   color: #ffffff;
+
+  @media (max-width: 375px) {
+    border-radius: 0px;
+  }
 `;
 
 const ProfileContainer = styled.figure`
@@ -88,6 +99,7 @@ const ProfileContainer = styled.figure`
   flex-direction: column;
   justify-content: start;
   align-items: center;
+
   img {
     display: flex;
     justify-content: center;
@@ -98,6 +110,13 @@ const ProfileContainer = styled.figure`
     height: 50px;
     border-radius: 50%;
     background-color: #ffffff;
+    @media (max-width: 375px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  @media (max-width: 375px) {
+    width: 40px;
   }
 `;
 const InfoContainer = styled.div`
@@ -107,22 +126,38 @@ const InfoContainer = styled.div`
   padding: 0 5px;
   width: 500px;
   position: relative;
+  @media (max-width: 375px) {
+    width: 100%;
+  }
 `;
 
 const PostUser = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+
   font-weight: 400;
   font-size: 19px;
   line-height: 23px;
   margin-bottom: 10px;
+  @media (max-width: 375px) {
+    font-size: 17px;
+  }
 `;
 
 const PostComment = styled.span`
+  display: flex;
+  flex-wrap: wrap;
   font-weight: 400;
   font-size: 17px;
   line-height: 20px;
   max-height: 52px;
   overflow: hidden;
   color: #b7b7b7;
+
+  @media (max-width: 375px) {
+    font-size: 15px;
+  }
 `;
 
 export {

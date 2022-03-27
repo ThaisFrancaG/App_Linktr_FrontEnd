@@ -14,9 +14,11 @@ const PostBanner = styled.article`
   position: absolute;
   bottom: 0;
   left: 0;
-
   font-family: "Lato";
   color: #cecece;
+  @media (max-width: 375px) {
+    width: 100%;
+  }
 `;
 
 const LinkInfo = styled.div`
@@ -29,17 +31,29 @@ const LinkInfo = styled.div`
 const LinkTitle = styled.span`
   font-size: 16px;
   line-height: 20px;
+  @media (max-width: 375px) {
+    font-size: 11px;
+    line-height: 16px;
+  }
 `;
 const LinkDesc = styled.span`
   font-size: 11px;
   line-height: 13.5px;
   color: #9b9595;
   margin-top: 5px;
+  @media (max-width: 375px) {
+    font-size: 9px;
+    line-height: 11px;
+  }
 `;
 const LinkUrl = styled.span`
   font-size: 11px;
   line-height: 13.5px;
   margin-top: 13px;
+  @media (max-width: 375px) {
+    font-size: 9px;
+    line-height: 11px;
+  }
 `;
 
 const LinkImage = styled.figure`
@@ -51,6 +65,10 @@ const LinkImage = styled.figure`
     width: auto;
     height: 100%;
     object-fit: scale-down;
+  }
+
+  @media (max-width: 375px) {
+    width: 95px;
   }
 `;
 
