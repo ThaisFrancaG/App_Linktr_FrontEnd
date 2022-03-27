@@ -41,16 +41,17 @@ function Timeline() {
 
   async function loadPosts() {
     const path = location.pathname;
+    const token = JSON.parse(localStorage.getItem("auth"));
     let response;
     try {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
-        response = await api.getUserPublications(Number(id));
+        response = await api.getUserPublications(Number(id), token);
       } else if (path.includes("/hashtag/")) {
         const hashtag = path.split("/")[2];
         response = await api.getHashtagPosts(hashtag);
       } else {
-        response = await api.getPublications();
+        response = await api.getPublications(token);
       }
       setPosts(response.data);
       setLoading(false);
@@ -88,7 +89,7 @@ function Timeline() {
             setLoading={setLoading}
           />
         )}
-        {loading ? <>Loading...</> : <PostsLists posts={posts} />}
+        {loading ? <>Loading...</> : <PostsLists posts={posts} user={user} loadPosts={loadPosts} />}
       </PostContainer>
     </>
   );

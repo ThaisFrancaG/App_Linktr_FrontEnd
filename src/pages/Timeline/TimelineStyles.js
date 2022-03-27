@@ -120,7 +120,6 @@ const SearchContainer = styled.div`
   height: 50%;
   background-color: white;
   border: none;
-  border-radius: 10px;
   color: black;
   align-items:center;
   * {
@@ -134,15 +133,15 @@ const SearchContainer = styled.div`
 	  margin: 0;
 	  padding: 0;
   }
-  div:last-child {
-	  border-bottom-left-radius: 10px;
-	  border-bottom-right-radius: 10px;
-  }
 `;
 
 const DebounceContainer = styled(DebounceInput)`
-	width: 100%;
+	width: 95%;
 	height: 100%;
+	border-top-left-radius: 10px;
+	:focus {
+		outline: none;
+	}
 `
 
 const Users = styled.ul`
@@ -155,12 +154,29 @@ const Users = styled.ul`
   padding: 10px !important;
 
   :hover {
-	  filter: brightness(90%);
+	filter: brightness(90%);
   }
   span {
     margin-left: 10px;
   }
+  :last-child {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+  }
 `;
+
+const SearchBar = styled.div`
+	display: flex;
+  	flex-direction: row;
+	width: 100%;
+	height: 100%;
+`
+
+const SearchIcon = styled.div`
+	width: calc(5% - 1px);
+	min-width: 35px;
+	border-left: 1px solid gray !important;
+`
 
 export {
 	HeaderComponent,
@@ -177,4 +193,6 @@ export {
 	SearchContainer,
   	Users,
 	DebounceContainer,
+	SearchIcon,
+	SearchBar
 };
