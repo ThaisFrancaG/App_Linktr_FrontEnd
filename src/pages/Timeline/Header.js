@@ -4,12 +4,15 @@ import {
 	LogoutButton,
 	ProfileComponent,
 	ProfileImg,
+	SearchBar,
+	SearchIcon,
 	Title
 } from "./TimelineStyles";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { AiOutlineSearch } from "react-icons/ai"
 import { SearchContainer, Users } from "./TimelineStyles";	
 
 function Header({ user }) {
@@ -34,8 +37,9 @@ function Header({ user }) {
 	};
 
 	async function getUsers() {
+		const token = JSON.parse(localStorage.getItem("auth"));
 		try {
-			const { data } = await api.getUsers(selectedValue);
+			const { data } = await api.getUsers(selectedValue, token);
 			setUsers(data);
 			return
 		}catch(error) {
@@ -46,10 +50,6 @@ function Header({ user }) {
 
 	function handleChange(e) {
 		setSelected(e.target.value)
-		if(selectedValue.length < 2) {
-			setShowList(false)
-			return
-		}
 		setShowList(true)
 	};
 
@@ -82,13 +82,19 @@ function Header({ user }) {
 		<HeaderComponent>
 			<Title>linktr</Title>
 			<SearchContainer ref={ref}>
-				<DebounceContainer 
-					id="search-container"
-					placeholder="Search for people"
-					debounceTimeout={300}
-					value={selectedValue}
-					onChange={(e) => handleChange(e)}
-				/>
+				<SearchBar>
+					<DebounceContainer 
+						id="search-container"
+						placeholder="Search for people"
+						minLength={3}
+						debounceTimeout={300}
+						value={selectedValue}
+						onChange={(e) => handleChange(e)}
+					/>
+					<SearchIcon>
+						<AiOutlineSearch />
+					</SearchIcon>
+				</SearchBar>
 				{showList && users?.map((profile,index) => (
 					<Users key={`profile-${index}`} onClick={() => goToUser(profile)}>
 						<ProfileImg src={profile.pictureUrl} /><span>{profile.username}</span>

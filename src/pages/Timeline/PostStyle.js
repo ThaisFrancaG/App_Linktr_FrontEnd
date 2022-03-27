@@ -159,6 +159,17 @@ const PostComment = styled.span`
   }
 `;
 
+const UsenameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    fill: white;
+  }
+`
+
 export {
   PostContainer,
   WriteContainer,
@@ -171,4 +182,5 @@ export {
   FormTitle,
   Input,
   Button,
+  UsenameContainer,
 };
