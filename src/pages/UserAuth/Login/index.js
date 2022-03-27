@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/userAuth";
-import api from "../../services/api";
+import useAuth from "../../../hooks/userAuth";
+import api from "../../../services/api";
 import {
-  AuthorizationScreen,
+  Container,
   TitleScreen,
   Title,
   SubTitle,
@@ -11,7 +11,7 @@ import {
   Input,
   Button,
   StyledLink,
-} from "./style";
+} from "../style";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -41,15 +41,19 @@ export default function Login() {
   }
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('auth'));
-    if (token) navigation('/timeline')
-  }, [])
+    const token = JSON.parse(localStorage.getItem("auth"));
+    if (token) navigation("/timeline");
+  }, []);
 
   return (
-    <AuthorizationScreen>
+    <Container>
       <TitleScreen>
-        <Title>linkr</Title>
-        <SubTitle>save, share and discover the best links on the web</SubTitle>
+        <div>
+          <Title>linkr</Title>
+          <SubTitle>
+            save, share and discover <br /> the best links on the web
+          </SubTitle>
+        </div>
       </TitleScreen>
       <Form onSubmit={handleSubmit}>
         <Input
@@ -73,6 +77,6 @@ export default function Login() {
         </Button>
         <StyledLink to="/sign-up">First time? Create an account!</StyledLink>
       </Form>
-    </AuthorizationScreen>
+    </Container>
   );
 }
