@@ -46,8 +46,11 @@ function Timeline() {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
         response = await api.getUserPublications(Number(id));
+      } else if (path.includes("/hashtag/")) {
+        const hashtag = path.split("/")[2];
+        response = await api.getHashtagPosts(hashtag);
       } else {
-        response = await api.getPublications(auth);
+        response = await api.getPublications();
       }
       setPosts(response.data);
       setLoading(false);
