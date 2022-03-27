@@ -41,6 +41,7 @@ function Timeline() {
 
   async function loadPosts() {
     const path = location.pathname;
+    const token = JSON.parse(localStorage.getItem("auth"));
     let response;
     try {
       if (path.includes("/user/")) {
@@ -50,7 +51,7 @@ function Timeline() {
         const hashtag = path.split("/")[2];
         response = await api.getHashtagPosts(hashtag);
       } else {
-        response = await api.getPublications();
+        response = await api.getPublications(token);
       }
       setPosts(response.data);
       setLoading(false);
