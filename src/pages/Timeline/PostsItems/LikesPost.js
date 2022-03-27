@@ -1,6 +1,6 @@
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { Icon, LikesInfo, LikedBy } from "./LikesStyle";
+import { Icon, LikesInfo, LikedBy, Container } from "./LikesStyle";
 import useAuth from "../../../hooks/userAuth";
 import api from "../../../services/api";
 
@@ -13,7 +13,6 @@ export default function LikesDisplay({
 }) {
   const [liked, setLiked] = useState(likedByUser);
   const [numberLikes, setNumberLikes] = useState(parseInt(likesNumber));
-  const [likedUsers, setLikedBy] = useState([]);
   const { auth } = useAuth();
 
   async function handleLike() {
@@ -44,7 +43,7 @@ export default function LikesDisplay({
   }
 
   return (
-    <>
+    <Container>
       <Icon liked={liked} onClick={() => handleLike()}>
         {liked ? <FaHeart /> : <FaRegHeart />}
       </Icon>
@@ -64,6 +63,6 @@ export default function LikesDisplay({
               numberLikes - whoLiked(postId).length
             } pessoas`}
       </LikedBy>
-    </>
+    </Container>
   );
 }
