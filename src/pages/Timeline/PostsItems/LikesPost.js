@@ -8,18 +8,14 @@ export default function LikesDisplay({ postId, likesNumber, likedByUser }) {
   const [liked, setLiked] = useState(likedByUser);
   const [numberLikes, setNumberLikes] = useState(parseInt(likesNumber));
   const { auth } = useAuth();
-  console.log(auth);
-  console.log(postId);
 
   useEffect(() => {
     updateLike();
   }, [liked]);
 
   async function updateLike() {
-    console.log("fui chamado");
     try {
       const { data } = await api.getLikes(auth);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

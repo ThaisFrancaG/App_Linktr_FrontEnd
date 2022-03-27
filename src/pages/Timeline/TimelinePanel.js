@@ -46,7 +46,7 @@ function Timeline() {
     try {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
-        response = await api.getUserPublications(Number(id));
+        response = await api.getUserPublications(Number(id), token);
       } else if (path.includes("/hashtag/")) {
         const hashtag = path.split("/")[2];
         response = await api.getHashtagPosts(hashtag);
@@ -89,7 +89,7 @@ function Timeline() {
             setLoading={setLoading}
           />
         )}
-        {loading ? <>Loading...</> : <PostsLists posts={posts} />}
+        {loading ? <>Loading...</> : <PostsLists posts={posts} user={user} loadPosts={loadPosts} />}
       </PostContainer>
     </>
   );

@@ -37,8 +37,9 @@ function Header({ user }) {
 	};
 
 	async function getUsers() {
+		const token = JSON.parse(localStorage.getItem("auth"));
 		try {
-			const { data } = await api.getUsers(selectedValue);
+			const { data } = await api.getUsers(selectedValue, token);
 			setUsers(data);
 			return
 		}catch(error) {
