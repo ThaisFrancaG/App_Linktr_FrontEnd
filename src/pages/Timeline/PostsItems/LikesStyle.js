@@ -10,4 +10,7 @@ const LikesInfo = styled.div`
   font-size: 11px;
   line-height: 13.5px;
 `;
-export { Icon, LikesInfo };
+const LikedBy = styled.div`
+  background-color: blue;
+`;
+export { Icon, LikesInfo, LikedBy };
