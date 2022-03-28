@@ -70,7 +70,6 @@ async function toggleLike(token, postId, liked) {
 
 async function getLikes(token, postId) {
   const config = authData(token);
-
   return await axios.get(`${BASE_URL}/likes`, config);
 }
 

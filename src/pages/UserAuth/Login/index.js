@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
     setButton(true);
     if (email.length === 0 || password.length === 0) {
-      alert("Favor preencher todos os campos");
+      alert("Please fill all form fields");
     }
     try {
       const { data } = await api.signIn(email, password);
@@ -33,9 +33,9 @@ export default function Login() {
       navigation("/timeline");
     } catch (error) {
       if (error.response.status === 401)
-        alert("Email ou senha incorreto, verifique seus dados");
+        alert("Email or password incorrect, please try again");
       else {
-        alert(`Confira seus dados ou tente novamente mais tarde`);
+        alert(`Please check your login info or try again later`);
       }
     }
     setButton(false);

@@ -64,7 +64,7 @@ function Timeline() {
       setLoading(false);
     } catch (error) {
       alert(
-        "An error occured while trying to fetch the posts, please refresh the page"
+        "An error occured while trying to fetch the posts, please refresh the page AQUI"
       );
     }
   }
