@@ -20,7 +20,7 @@ const HeaderComponent = styled.div`
   padding: 0 20px;
   background-color: #151515;
   @media (max-width: 375px) {
-    width: 100%;
+    width: 100vw;
   }
 `;
 
@@ -34,9 +34,6 @@ const ProfileImg = styled.img`
   width: 50px;
   border-radius: 50%;
   height: 50px;
-  @media (max-width: 375px) {
-    display: none;
-  }
 `;
 
 const ProfileComponent = styled.div`
@@ -150,6 +147,15 @@ const SearchContainer = styled.div`
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+
+  @media (max-width: 375px) {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    margin: 5px;
+    width: calc(100vw - 10px);
+    border-radius: 10px;
+  }
 `;
 
 const DebounceContainer = styled(DebounceInput)`
@@ -158,6 +164,15 @@ const DebounceContainer = styled(DebounceInput)`
   border-top-left-radius: 10px;
   :focus {
     outline: none;
+  }
+
+  @media (max-width: 375px) {
+    border-bottom-left-radius: 10px;
+
+    :focus {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 `;
 
@@ -192,7 +207,9 @@ const SearchBar = styled.div`
 const SearchIcon = styled.div`
   width: calc(5% - 1px);
   min-width: 35px;
-  border-left: 1px solid gray !important;
+  border-left: 1px solid #949494 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 `;
 
 export {
