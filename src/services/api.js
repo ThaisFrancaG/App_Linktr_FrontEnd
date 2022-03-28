@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
-// const BASE_URL = "https://projeto-linkr.herokuapp.com";
+//const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -70,7 +70,6 @@ async function toggleLike(token, postId, liked) {
 
 async function getLikes(token, postId) {
   const config = authData(token);
-  console.log(postId);
   return await axios.get(`${BASE_URL}/likes`, config);
 }
 

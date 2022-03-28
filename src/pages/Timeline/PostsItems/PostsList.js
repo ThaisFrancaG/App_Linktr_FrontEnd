@@ -59,7 +59,7 @@ export default function PostsLists({
   }
 
   async function enterKeyPress(e) {
-    if (e.keyCode == 13 && edit) {
+    if (e.keyCode === 13 && edit) {
       setLoading(true);
       const token = JSON.parse(localStorage.getItem("auth"));
       try {
@@ -72,7 +72,7 @@ export default function PostsLists({
       } catch (error) {
         alert(error);
       }
-    } else if (e.keyCode == 27) {
+    } else if (e.keyCode === 27) {
       setDesc(ref.current._wrapperState.initialValue);
       setEdit(false);
     }
