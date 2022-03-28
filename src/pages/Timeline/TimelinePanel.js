@@ -25,7 +25,7 @@ function Timeline() {
   async function getUser() {
     const token = JSON.parse(localStorage.getItem("auth"));
     if (!token) {
-      alert("Faça Login");
+      alert("Please, reload and login again");
       navigation("/");
       return;
     }
@@ -33,10 +33,13 @@ function Timeline() {
       const response = await api.getUserData(token);
       setUser(response.data);
     } catch (error) {
-      if (error.response.status === 400) {
-        alert("Token Vazio, faça login novamente");
+      if (error.response.status === 400 || error.response.status === 401) {
+        alert("Please, reload and login");
+        localStorage.removeItem("auth");
+        navigation("/");
+        return;
       } else {
-        alert(`Algo deu errado`);
+        alert(`Something went wrong. Please, try again later`);
       }
       navigation("/");
       return;
