@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
@@ -8,6 +8,7 @@ import { Container, TimelineTitle } from "./TimelineStyles";
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 import Header from "./Header";
+import Hashtags from "./Trendings/HashtagBox";
 
 function Timeline() {
   const { auth } = useAuth();
@@ -19,6 +20,7 @@ function Timeline() {
   const [loading, setLoading] = useState(true);
 
   const location = useLocation();
+  const { hashtag } = useParams();
 
   async function getUser() {
     const token = JSON.parse(localStorage.getItem("auth"));
@@ -91,8 +93,10 @@ function Timeline() {
       <PostContainer>
         <TimelineTitle>
           {location.pathname !== "/timeline"
-            ? `${posts[0]?.username}'s posts`
-            : "Timeline"}
+            ? location.pathname !== `/hashtag/${hashtag}`
+              ? `${posts[0]?.username}'s posts`
+              : `# ${hashtag}`
+            : "timeline"}
         </TimelineTitle>
         {location.pathname !== "/timeline" ? (
           <></>
@@ -115,6 +119,7 @@ function Timeline() {
           />
         )}
       </PostContainer>
+      <Hashtags />
     </Container>
   );
 }
