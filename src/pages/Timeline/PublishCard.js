@@ -19,7 +19,7 @@ export default function PublishCard({ user, setReloadPosts, setLoading }) {
     setDisabled(true);
     if (!link) {
       setDisabled(false);
-      alert("Preencha o Link de publicação");
+      alert("Please add post link");
       return;
     }
     try {
@@ -31,7 +31,7 @@ export default function PublishCard({ user, setReloadPosts, setLoading }) {
       setReloadPosts(true);
       return;
     } catch (error) {
-      alert("Houve um erro ao publicar seu link");
+      alert("Something went wrong while publishing your post");
       console.error(error);
       setDisabled(false);
       return;

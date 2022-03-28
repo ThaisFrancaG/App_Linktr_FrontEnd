@@ -29,7 +29,7 @@ export default function Login() {
     try {
       const { data } = await api.signIn(email, password);
       login(data);
-      console.log(data);
+
       navigation("/timeline");
     } catch (error) {
       if (error.response.status === 401)
