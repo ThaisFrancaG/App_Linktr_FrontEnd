@@ -29,7 +29,8 @@ function Header({ user }) {
       await api.logOut(token);
       localStorage.removeItem("auth");
     } catch (error) {
-      alert("Sessão não encontrada");
+      console.log(error);
+      alert("Something went wrong. Try to login again");
       return;
     }
     navigation("/");

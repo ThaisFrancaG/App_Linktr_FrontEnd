@@ -34,7 +34,7 @@ function SignUp() {
 
     Object.keys(user).forEach((item) => {
       if (!user[item]) {
-        alert("Todos os campos precisam estar preenchidos");
+        alert("All fields must be filled");
       }
     });
 
@@ -44,11 +44,11 @@ function SignUp() {
       navigate("/");
     } catch (error) {
       if (error.response.status === 409) {
-        alert("E-mail já cadastrado");
+        alert("E-mail already in use");
         setIsLoading(false);
       }
       console.log(error);
-      alert("Erro, tente novamente");
+      alert("Please try again");
     }
   }
 
