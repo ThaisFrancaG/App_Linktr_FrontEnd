@@ -1,11 +1,14 @@
 import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
+
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  /* width: 100vw; */
+  justify-content: space-around;
+  height: 100%;
 `;
 const HeaderComponent = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   display: flex;
   justify-content: space-between;
@@ -119,9 +122,9 @@ const FormSubmit = styled.input`
 `;
 
 const TimelineTitle = styled.span`
-  font-size: 45px;
+  font-size: 43px;
   font-weight: bold;
-  font-family: "Passion One";
+  font-family: "Oswald";
 `;
 
 const SearchContainer = styled.div`
