@@ -10,10 +10,12 @@ const Container = styled.div`
   height: 406px;
 
   top: 160px;
-  right: 262px;
+  right: 0px;
 
   border-radius: 16px;
   background-color: #171717;
+
+  margin-top: 150px;
 
   @media (max-width: 375px) {
     display: none;

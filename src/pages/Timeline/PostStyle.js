@@ -79,10 +79,12 @@ const Button = styled.button`
 `;
 
 const ReadContainer = styled.article`
+  width: 100%;
   height: 280px;
   display: flex;
 
   background-color: #171717;
+
   border-radius: 16px;
   padding: 20px;
   color: #ffffff;
@@ -118,13 +120,19 @@ const ProfileContainer = styled.figure`
     width: 40px;
   }
 `;
+
 const InfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   padding: 0 5px;
   width: 500px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+
   position: relative;
+
   @media (max-width: 375px) {
     width: 100%;
   }
@@ -145,13 +153,19 @@ const PostUser = styled.span`
 `;
 
 const PostComment = styled.div`
+  height: 40px;
+  width: 100%;
+
   display: flex;
   flex-wrap: wrap;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+
   font-weight: 400;
   font-size: 17px;
   line-height: 20px;
-  max-height: 52px;
-  overflow: hidden;
+
   color: #b7b7b7;
 
   span {

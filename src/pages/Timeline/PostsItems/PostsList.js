@@ -36,7 +36,6 @@ export default function PostsLists({
   const [loading, setLoading] = useState(false);
   const ref = useRef();
   const navigation = useNavigate();
-
   function handleClick(link) {
     window.open(link);
   }

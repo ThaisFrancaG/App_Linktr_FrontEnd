@@ -77,7 +77,6 @@ function Timeline() {
       console.log(error);
     }
   }
-
   useEffect(() => {
     getUser();
   }, []);

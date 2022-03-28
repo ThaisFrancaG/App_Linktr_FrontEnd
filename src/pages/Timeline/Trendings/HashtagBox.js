@@ -17,7 +17,7 @@ function Hashtags() {
   async function handleTrendings() {
     const token = JSON.parse(localStorage.getItem("auth"));
     if (!token) {
-      alert("Faça Login");
+      alert("Tou have to be logged in!");
       navigation("/");
       return;
     }
@@ -34,7 +34,7 @@ function Hashtags() {
 
   useEffect(() => {
     handleTrendings();
-  }, [trendings]);
+  }, []);
 
   if (trendings === null) {
     return (

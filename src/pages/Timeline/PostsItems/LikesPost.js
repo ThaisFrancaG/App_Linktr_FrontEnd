@@ -12,7 +12,7 @@ export default function LikesDisplay({
   user,
 }) {
   const [liked, setLiked] = useState(likedByUser);
-  const [numberLikes, setNumberLikes] = useState(parseInt(likesNumber));
+  const [numberLikes, setNumberLikes] = useState(likesNumber);
   const { auth } = useAuth();
 
   async function handleLike() {
@@ -47,7 +47,7 @@ export default function LikesDisplay({
       <Icon liked={liked} onClick={() => handleLike()}>
         {liked ? <FaHeart /> : <FaRegHeart />}
       </Icon>
-      <LikesInfo>{numberLikes} Likes</LikesInfo>
+      <LikesInfo>{numberLikes}Likes</LikesInfo>
       <LikedBy>
         {numberLikes === 0
           ? liked === false
