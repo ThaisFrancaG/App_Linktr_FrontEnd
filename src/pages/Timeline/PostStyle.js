@@ -168,7 +168,7 @@ const UsenameContainer = styled.div`
   svg {
     fill: white;
   }
-`
+`;
 
 export {
   PostContainer,
