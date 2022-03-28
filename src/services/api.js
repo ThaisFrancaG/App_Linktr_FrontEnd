@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = "http://localhost:5000";
-const BASE_URL = "https://projeto-linkr.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
+// const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -46,12 +46,13 @@ async function getUserPublications(id, token) {
 }
 
 async function getHashtagPosts(hashtag, token) {
+  const config = authData(token);
   return await axios.get(`${BASE_URL}/hashtag/${hashtag}`, config);
 }
 
 async function getHashtags(token) {
   const config = authData(token);
-  return await axios.get(`${BASE_URL}/hashtag`, token);
+  return await axios.get(`${BASE_URL}/hashtag`, config);
 }
 
 async function getUsers(name, token) {

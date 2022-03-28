@@ -34,7 +34,7 @@ function Hashtags() {
 
   useEffect(() => {
     handleTrendings();
-  }, []);
+  }, [trendings]);
 
   if (trendings === null) {
     return (
