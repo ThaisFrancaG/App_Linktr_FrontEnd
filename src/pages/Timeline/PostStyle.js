@@ -12,7 +12,7 @@ const PostContainer = styled.main`
   overflow: hidden;
   @media (max-width: 375px) {
     width: 100%;
-    padding-top: 0px;
+    padding-top: 150px;
   }
 `;
 const WriteContainer = styled.div`
