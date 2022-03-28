@@ -19,6 +19,7 @@ import {
 import { FiEdit2 } from "react-icons/fi";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
+import ReactHashtag from "@mdnm/react-hashtag";
 import api from "../../../services/api";
 
 export default function PostsLists({
@@ -133,7 +134,21 @@ export default function PostsLists({
                   onChange={(e) => setDesc(e.target.value)}
                 />
               ) : (
-                <PostComment>{post.description}</PostComment>
+                <PostComment>
+                  <ReactHashtag
+                    renderHashtag={(hashtag) => (
+                      <span
+                        onClick={() =>
+                          navigation(`/hashtag/${hashtag.substr(1)}`)
+                        }
+                      >
+                        {hashtag}
+                      </span>
+                    )}
+                  >
+                    {post.description}
+                  </ReactHashtag>
+                </PostComment>
               )}
               <PostBanner onClick={() => handleClick(post.link)}>
                 <LinkInfo>

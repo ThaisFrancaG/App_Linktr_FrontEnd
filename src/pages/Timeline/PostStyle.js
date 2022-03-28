@@ -144,7 +144,7 @@ const PostUser = styled.span`
   }
 `;
 
-const PostComment = styled.span`
+const PostComment = styled.div`
   display: flex;
   flex-wrap: wrap;
   font-weight: 400;
@@ -153,6 +153,12 @@ const PostComment = styled.span`
   max-height: 52px;
   overflow: hidden;
   color: #b7b7b7;
+
+  span {
+    font-weight: bold;
+
+    cursor: pointer;
+  }
 
   @media (max-width: 375px) {
     font-size: 15px;

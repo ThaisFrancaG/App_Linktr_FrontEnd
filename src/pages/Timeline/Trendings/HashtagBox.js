@@ -22,7 +22,7 @@ function Hashtags() {
       return;
     }
     try {
-      const hashtag = await api.getHashtags();
+      const hashtag = await api.getHashtags(token);
 
       setTrendings(hashtag.data);
       return;
@@ -34,7 +34,7 @@ function Hashtags() {
 
   useEffect(() => {
     handleTrendings();
-  }, []);
+  }, [trendings]);
 
   if (trendings === null) {
     return (
