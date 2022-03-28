@@ -16,18 +16,24 @@ import {
   LinkDesc,
   LinkUrl,
 } from "./SnippetStyle";
-import { FiEdit2 } from "react-icons/fi"
+import { FiEdit2 } from "react-icons/fi";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import api from "../../../services/api";
 
-export default function PostsLists({ posts, user, loadPosts}) {
+export default function PostsLists({
+  likes,
+  posts,
+  user,
+  loadPosts,
+  getWhoLiked,
+}) {
   const [postEditId, setEditId] = useState();
   const [linkEdit, setLink] = useState();
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
-  const [loading, setLoading] = useState(false)
-  const ref = useRef(); 
+  const [loading, setLoading] = useState(false);
+  const ref = useRef();
   const navigation = useNavigate();
 
   function handleClick(link) {
@@ -40,102 +46,111 @@ export default function PostsLists({ posts, user, loadPosts}) {
     window.location.reload();
   }
 
-  function editPost(e,post) {
-    if(edit) {
-      setDesc(ref.current._wrapperState.initialValue)
-      setEdit(false)
-      return
+  function editPost(e, post) {
+    if (edit) {
+      setDesc(ref.current._wrapperState.initialValue);
+      setEdit(false);
+      return;
     }
-    setEditId(post.id)
-    setLink(post.link)
-    setEdit(true)
-    
-    
-  };
+    setEditId(post.id);
+    setLink(post.link);
+    setEdit(true);
+  }
 
-  async function enterKeyPress (e) {
-    if(e.keyCode == 13 && edit) {
-      setLoading(true)
+  async function enterKeyPress(e) {
+    if (e.keyCode == 13 && edit) {
+      setLoading(true);
       const token = JSON.parse(localStorage.getItem("auth"));
       try {
-        await api.updatePosts(token, {link: linkEdit, description:descEdit,id:postEditId});
-        setEdit(false)
-      }catch(error) {
-        alert(error)
+        await api.updatePosts(token, {
+          link: linkEdit,
+          description: descEdit,
+          id: postEditId,
+        });
+        setEdit(false);
+      } catch (error) {
+        alert(error);
       }
     } else if (e.keyCode == 27) {
-      setDesc(ref.current._wrapperState.initialValue)
-      setEdit(false)
+      setDesc(ref.current._wrapperState.initialValue);
+      setEdit(false);
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', enterKeyPress);
+    window.addEventListener("keydown", enterKeyPress);
 
     return () => {
-      window.removeEventListener('keydown', enterKeyPress);
-    }
-  })
+      window.removeEventListener("keydown", enterKeyPress);
+    };
+  });
 
   useEffect(() => {
-    if(edit) {
-      ref.current.focus()
+    if (edit) {
+      ref.current.focus();
     }
-  },[edit]);
+  }, [edit]);
 
   useEffect(() => {
-    loadPosts()
-  },[loading])
+    loadPosts();
+    getWhoLiked();
+  }, [loading]);
 
   return (
     <>
-      {posts[0].id? posts.map((post) => (
-        <ReadContainer key={post.id}>
-          <ProfileContainer>
-            <img src={post.userPic} alt="profile pic" />
-            <LikesDisplay
-              postId={post.id}
-              likesNumber={post.likes_count}
-              likedByUser={post.likedByUser}
-            />
-          </ProfileContainer>
-          <InfoContainer>
-            <UsenameContainer>
-              <PostUser onClick={(e) => handleChange(e, post)}>
-                {post.username}
-              </PostUser>
-              {user.id === post.userId ? (
-                <FiEdit2 onClick={(e) => editPost(e, post)}/>
-              ): (
-                <></>
-              )}
-            </UsenameContainer>
-            {edit && postEditId === post.id ? (
-              <FormInput 
-                value={descEdit}
-                defaultValue={post.description}
-                type="text"
-                ref={ref}
-                disabled={loading}
-                onChange={(e) => setDesc(e.target.value)}
+      {posts[0].id ? (
+        posts.map((post) => (
+          <ReadContainer key={post.id}>
+            <ProfileContainer>
+              <img src={post.userPic} alt="profile pic" />
+              <LikesDisplay
+                postId={post.id}
+                likesNumber={post.likes_count}
+                likedByUser={post.likedByUser}
+                likes={likes}
+                user={user}
               />
-            ): (
-              <PostComment >{post.description}</PostComment>
-            )}
-            <PostBanner onClick={() => handleClick(post.link)}>
-              <LinkInfo>
-                <LinkTitle>{post.linkName}</LinkTitle>
-                <LinkDesc>{post.linkDesc}</LinkDesc>
-                <LinkUrl>{post.link}</LinkUrl>
-              </LinkInfo>
-              <LinkImage>
-                <img src={post.linkBanner} alt="profile pic" />
-              </LinkImage>
-            </PostBanner>
-          </InfoContainer>
-        </ReadContainer>
-      )) : <></>}
+            </ProfileContainer>
+            <InfoContainer>
+              <UsenameContainer>
+                <PostUser onClick={(e) => handleChange(e, post)}>
+                  {post.username}
+                </PostUser>
+                {user.id === post.userId ? (
+                  <FiEdit2 onClick={(e) => editPost(e, post)} />
+                ) : (
+                  <></>
+                )}
+              </UsenameContainer>
+              {edit && postEditId === post.id ? (
+                <FormInput
+                  value={descEdit}
+                  defaultValue={post.description}
+                  type="text"
+                  ref={ref}
+                  disabled={loading}
+                  onChange={(e) => setDesc(e.target.value)}
+                />
+              ) : (
+                <PostComment>{post.description}</PostComment>
+              )}
+              <PostBanner onClick={() => handleClick(post.link)}>
+                <LinkInfo>
+                  <LinkTitle>{post.linkName}</LinkTitle>
+                  <LinkDesc>{post.linkDesc}</LinkDesc>
+                  <LinkUrl>{post.link}</LinkUrl>
+                </LinkInfo>
+                <LinkImage>
+                  <img src={post.linkBanner} alt="profile pic" />
+                </LinkImage>
+              </PostBanner>
+            </InfoContainer>
+          </ReadContainer>
+        ))
+      ) : (
+        <></>
+      )}
     </>
   );
 }

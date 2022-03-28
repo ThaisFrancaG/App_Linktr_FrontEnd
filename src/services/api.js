@@ -60,17 +60,18 @@ async function toggleLike(token, postId, liked) {
     token: token,
     liked: liked,
   });
-};
+}
 
-async function getLikes(token) {
+async function getLikes(token, postId) {
   const config = authData(token);
+  console.log(postId);
   return await axios.get(`${BASE_URL}/likes`, config);
-};
+}
 
 async function updatePosts(token, body) {
   const config = authData(token);
-  return await axios.put(`${BASE_URL}/post`, body, config)
-};
+  return await axios.put(`${BASE_URL}/post`, body, config);
+}
 
 const api = {
   signIn,
