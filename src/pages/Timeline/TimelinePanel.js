@@ -15,8 +15,10 @@ function Timeline() {
   const navigation = useNavigate();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const location = useLocation();
   const { hashtag } = useParams();
 
@@ -64,12 +66,24 @@ function Timeline() {
     }
   }
 
+  async function getWhoLiked() {
+    try {
+      const { data } = await api.getLikes(auth);
+      console.log(data);
+      setLikes(data);
+    } catch (error) {
+      console.log("deu ruim");
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getUser();
   }, []);
 
   useEffect(() => {
     loadPosts();
+    getWhoLiked();
     setReloadPosts(false);
   }, [reloadPosts]);
 
@@ -96,7 +110,13 @@ function Timeline() {
         {loading ? (
           <>Loading...</>
         ) : (
-          <PostsLists posts={posts} user={user} loadPosts={loadPosts} />
+          <PostsLists
+            posts={posts}
+            user={user}
+            loadPosts={loadPosts}
+            getWhoLiked={getWhoLiked}
+            likes={likes}
+          />
         )}
       </PostContainer>
       <Hashtags />
