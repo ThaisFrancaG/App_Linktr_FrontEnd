@@ -45,13 +45,13 @@ async function getUserPublications(id, token) {
   return await axios.get(`${BASE_URL}/user/${id}`, config);
 }
 
-async function getHashtagPosts(hashtag) {
-  return await axios.get(`${BASE_URL}/hashtag/${hashtag}`);
+async function getHashtagPosts(hashtag, token) {
+  return await axios.get(`${BASE_URL}/hashtag/${hashtag}`, config);
 }
 
-async function getHashtags() {
-  // const config = authData(token);
-  return await axios.get(`${BASE_URL}/hashtag`);
+async function getHashtags(token) {
+  const config = authData(token);
+  return await axios.get(`${BASE_URL}/hashtag`, token);
 }
 
 async function getUsers(name, token) {

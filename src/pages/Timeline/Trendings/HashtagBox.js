@@ -22,7 +22,7 @@ function Hashtags() {
       return;
     }
     try {
-      const hashtag = await api.getHashtags();
+      const hashtag = await api.getHashtags(token);
 
       setTrendings(hashtag.data);
       return;
