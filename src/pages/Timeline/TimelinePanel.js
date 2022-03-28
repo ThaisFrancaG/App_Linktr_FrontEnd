@@ -72,10 +72,8 @@ function Timeline() {
   async function getWhoLiked() {
     try {
       const { data } = await api.getLikes(auth);
-      console.log(data);
       setLikes(data);
     } catch (error) {
-      console.log("deu ruim");
       console.log(error);
     }
   }
@@ -112,6 +110,8 @@ function Timeline() {
         )}
         {loading ? (
           <>Loading...</>
+        ) : typeof posts[0] === "string" ? (
+          posts
         ) : (
           <PostsLists
             posts={posts}
