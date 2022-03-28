@@ -23,7 +23,6 @@ function Hashtags() {
     }
     try {
       const hashtag = await api.getHashtags();
-      console.log(hashtag.data);
 
       setTrendings(hashtag.data);
       return;
