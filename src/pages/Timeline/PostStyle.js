@@ -173,6 +173,12 @@ const UsenameContainer = styled.div`
 
   svg {
     fill: white;
+    cursor: pointer;
+  }
+
+  div {
+    display: flex;
+    gap: 12px;
   }
 `;
 

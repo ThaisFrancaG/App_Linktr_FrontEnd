@@ -19,8 +19,10 @@ import {
 import { FiEdit2 } from "react-icons/fi";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
+import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
 import api from "../../../services/api";
+import DeletePost from "./DeletePost";
 
 export default function PostsLists({
   likes,
@@ -33,9 +35,16 @@ export default function PostsLists({
   const [linkEdit, setLink] = useState();
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
+  const [deletePost, setDeletePost] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const navigation = useNavigate();
+  console.log(posts);
+  function handleDelete() {
+    setDeletePost(true);
+    setIsOpen(true);
+  }
 
   function handleClick(link) {
     window.open(link);
@@ -119,11 +128,21 @@ export default function PostsLists({
                   {post.username}
                 </PostUser>
                 {user.id === post.userId ? (
-                  <FiEdit2 onClick={(e) => editPost(e, post)} />
+                  <div>
+                    <FiEdit2 onClick={(e) => editPost(e, post)} />
+                    <FiTrash2 onClick={(e) => handleDelete()} />
+                  </div>
                 ) : (
                   <></>
                 )}
               </UsenameContainer>
+              {deletePost && (
+                <DeletePost
+                  postId={post.id}
+                  setIsOpen={setIsOpen}
+                  modalIsOpen={modalIsOpen}
+                />
+              )}
               {edit && postEditId === post.id ? (
                 <FormInput
                   value={descEdit}

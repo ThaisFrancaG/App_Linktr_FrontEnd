@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+
   position: sticky;
 
   width: 301px;
@@ -14,6 +15,8 @@ const Container = styled.div`
 
   border-radius: 16px;
   background-color: #171717;
+
+  margin-top: 160px;
 
   @media (max-width: 375px) {
     display: none;

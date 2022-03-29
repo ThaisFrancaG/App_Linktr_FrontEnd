@@ -79,6 +79,11 @@ async function updatePosts(token, body) {
   return await axios.put(`${BASE_URL}/post`, body, config);
 }
 
+async function deletePost(token, id) {
+  const config = authData(token);
+  return await axios.delete(`${BASE_URL}/post`, config, id);
+}
+
 const api = {
   signIn,
   signUp,
@@ -93,6 +98,7 @@ const api = {
   toggleLike,
   getLikes,
   updatePosts,
+  deletePost,
 };
 
 export default api;
