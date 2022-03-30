@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  position: 
   /* width: 100vw; */
   justify-content: space-around;
   height: 100%;
@@ -213,6 +212,10 @@ const SearchIcon = styled.div`
   border-bottom-right-radius: 0 !important;
 `;
 
+const TimelineContainer = styled.div`
+  display: flex;
+`
+
 export {
   Container,
   HeaderComponent,
@@ -231,4 +234,5 @@ export {
   DebounceContainer,
   SearchIcon,
   SearchBar,
+  TimelineContainer,
 };
