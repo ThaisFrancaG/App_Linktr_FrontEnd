@@ -42,7 +42,7 @@ export default function PostsLists({
 
   function handleChange(e, post) {
     e.preventDefault();
-    navigation(`/user/${post.userId}`);
+    navigation(`/user/${post.userId}`, {state: {username: post.username}});
     window.location.reload();
   }
 

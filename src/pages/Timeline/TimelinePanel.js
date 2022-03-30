@@ -11,8 +11,13 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
+function TimelineName () {
+
+}
+
 function Timeline() {
   const { auth } = useAuth();
+  const { state } = useLocation();
   const navigation = useNavigate();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
@@ -106,7 +111,7 @@ function Timeline() {
           <TimelineTitle>
             {location.pathname !== "/timeline"
               ? location.pathname !== `/hashtag/${hashtag}`
-                ? `${posts[0]?.username}'s posts`
+                ? `${state.username}'s posts`
                 : `# ${hashtag}`
               : "timeline"}
           </TimelineTitle>
