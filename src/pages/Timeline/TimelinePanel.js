@@ -11,8 +11,17 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
-function TimelineName () {
-
+function TimelineName ({state, hashtag}) {
+  const location = useLocation();
+  return (
+    <TimelineTitle>
+      {location.pathname !== "/timeline"
+        ? location.pathname !== `/hashtag/${hashtag}`
+          ? `${state.username}'s posts`
+          : `# ${hashtag}`
+        : "timeline"}
+    </TimelineTitle>
+  )
 }
 
 function Timeline() {
@@ -108,13 +117,7 @@ function Timeline() {
       <Header user={user} />
       <TimelineContainer>
         <PostContainer>
-          <TimelineTitle>
-            {location.pathname !== "/timeline"
-              ? location.pathname !== `/hashtag/${hashtag}`
-                ? `${state.username}'s posts`
-                : `# ${hashtag}`
-              : "timeline"}
-          </TimelineTitle>
+          <TimelineName state={state} hashtag={hashtag} />
 
           {location.pathname !== "/timeline" ? (
             <FollowButton
