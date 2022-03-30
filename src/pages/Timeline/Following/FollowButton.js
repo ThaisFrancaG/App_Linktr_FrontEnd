@@ -15,12 +15,9 @@ function FollowButton({ display, pageInfo, following }) {
       const response = await api.getFollowing(auth);
       const following = response.data;
       console.table(following);
-      console.log(typeof pageInfo);
+
       let alreadyFollowing = 0;
       for (let i = 0; i < following.length; i++) {
-        console.log(typeof following[i].followingId);
-
-        console.log(following[i].followingId === pageInfo);
         if (following[i].followingId == pageInfo) {
           alert("is following");
           setFollowing(true);
@@ -28,7 +25,7 @@ function FollowButton({ display, pageInfo, following }) {
           alreadyFollowing++;
         }
       }
-      console.log(alreadyFollowing);
+
       if (alreadyFollowing === 0) {
         setFollowing(false);
       }
