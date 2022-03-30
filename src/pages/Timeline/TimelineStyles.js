@@ -19,6 +19,7 @@ const HeaderComponent = styled.div`
   padding: 0 20px;
   background-color: #151515;
   @media (max-width: 375px) {
+    position: absolute;
     width: 100vw;
   }
 `;
@@ -206,10 +207,21 @@ const SearchBar = styled.div`
 const SearchIcon = styled.div`
   width: calc(5% - 1px);
   min-width: 35px;
-  border-left: 1px solid #949494 !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    margin: 0;
+    font-size: 20px;
+    opacity: 50%;
+  }
 `;
+
+const TimelineContainer = styled.div`
+  display: flex;
+`
 
 export {
   Container,
@@ -229,4 +241,5 @@ export {
   DebounceContainer,
   SearchIcon,
   SearchBar,
+  TimelineContainer,
 };

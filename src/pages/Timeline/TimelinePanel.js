@@ -3,29 +3,44 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import { Container, TimelineTitle } from "./TimelineStyles";
+import { Container, TimelineContainer, TimelineTitle } from "./TimelineStyles";
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
+import FollowButton from "./Following/FollowButton";
+
+function TimelineName ({state, hashtag}) {
+  const location = useLocation();
+  return (
+    <TimelineTitle>
+      {location.pathname !== "/timeline"
+        ? location.pathname !== `/hashtag/${hashtag}`
+          ? `${state.username}'s posts`
+          : `# ${hashtag}`
+        : "timeline"}
+    </TimelineTitle>
+  )
+}
 
 function Timeline() {
   const { auth } = useAuth();
+  const { state } = useLocation();
   const navigation = useNavigate();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [following, setFollowing] = useState([]);
   const location = useLocation();
   const { hashtag } = useParams();
 
   async function getUser() {
     const token = JSON.parse(localStorage.getItem("auth"));
     if (!token) {
-      alert("Faça Login");
+      alert("Please, reload and login again");
       navigation("/");
       return;
     }
@@ -33,10 +48,13 @@ function Timeline() {
       const response = await api.getUserData(token);
       setUser(response.data);
     } catch (error) {
-      if (error.response.status === 400) {
-        alert("Token Vazio, faça login novamente");
+      if (error.response.status === 400 || error.response.status === 401) {
+        alert("Please, reload and login");
+        localStorage.removeItem("auth");
+        navigation("/");
+        return;
       } else {
-        alert(`Algo deu errado`);
+        alert(`Something went wrong. Please, try again later`);
       }
       navigation("/");
       return;
@@ -61,7 +79,7 @@ function Timeline() {
       setLoading(false);
     } catch (error) {
       alert(
-        "An error occured while trying to fetch the posts, please refresh the page"
+        "An error occured while trying to fetch the posts, please refresh the page AQUI"
       );
     }
   }
@@ -69,14 +87,20 @@ function Timeline() {
   async function getWhoLiked() {
     try {
       const { data } = await api.getLikes(auth);
-      console.log(data);
       setLikes(data);
     } catch (error) {
-      console.log("deu ruim");
       console.log(error);
     }
   }
 
+  async function checkFollowing() {
+    try {
+      const { data } = await api.getFollowing(auth);
+      setFollowing(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     getUser();
   }, []);
@@ -84,42 +108,52 @@ function Timeline() {
   useEffect(() => {
     loadPosts();
     getWhoLiked();
+    checkFollowing();
     setReloadPosts(false);
   }, [reloadPosts]);
 
   return (
     <Container>
       <Header user={user} />
-      <PostContainer>
-        <TimelineTitle>
-          {location.pathname !== "/timeline"
-            ? location.pathname !== `/hashtag/${hashtag}`
-              ? `${posts[0]?.username}'s posts`
-              : `# ${hashtag}`
-            : "timeline"}
-        </TimelineTitle>
-        {location.pathname !== "/timeline" ? (
-          <></>
-        ) : (
-          <PublishCard
-            user={user}
-            setReloadPosts={setReloadPosts}
-            setLoading={setLoading}
-          />
-        )}
-        {loading ? (
-          <>Loading...</>
-        ) : (
-          <PostsLists
-            posts={posts}
-            user={user}
-            loadPosts={loadPosts}
-            getWhoLiked={getWhoLiked}
-            likes={likes}
-          />
-        )}
-      </PostContainer>
-      <Hashtags />
+      <TimelineContainer>
+        <PostContainer>
+          <TimelineName state={state} hashtag={hashtag} />
+
+          {location.pathname !== "/timeline" ? (
+            <FollowButton
+              display={true}
+              pageInfo={posts[0]?.userId}
+              following={following}
+            />
+          ) : (
+            <FollowButton display={false} />
+          )}
+
+          {location.pathname !== "/timeline" ? (
+            <></>
+          ) : (
+            <PublishCard
+              user={user}
+              setReloadPosts={setReloadPosts}
+              setLoading={setLoading}
+            />
+          )}
+          {loading ? (
+            <>Loading...</>
+          ) : typeof posts[0] === "string" ? (
+            posts
+          ) : (
+            <PostsLists
+              posts={posts}
+              user={user}
+              loadPosts={loadPosts}
+              getWhoLiked={getWhoLiked}
+              likes={likes}
+            />
+          )}
+        </PostContainer>
+        <Hashtags />
+      </TimelineContainer>
     </Container>
   );
 }

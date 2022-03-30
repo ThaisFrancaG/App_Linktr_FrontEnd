@@ -89,7 +89,7 @@ const Form = styled.form`
   padding: 0 51px 0 55px;
 
   @media (max-width: 375px) {
-    width: 100%;
+    width: 90%;
     margin-top: 40px;
     justify-content: start;
     padding: 0px;
@@ -116,7 +116,7 @@ const Input = styled.input`
     height: 55px;
     font-size: 22px;
     line-height: 32px;
-    border-radius: 0px;
+    border-radius: 8px;
   }
 `;
 
@@ -142,7 +142,7 @@ const Button = styled.button`
   color: #fff;
 
   @media (max-width: 375px) {
-    width: 330px;
+    width: 100%;
     height: 55px;
     font-size: 22px;
     line-height: 32px;
