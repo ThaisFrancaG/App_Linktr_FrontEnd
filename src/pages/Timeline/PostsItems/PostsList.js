@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import useAuth from "../../../hooks/userAuth";
 import {
   ReadContainer,
   ProfileContainer,
@@ -17,10 +19,15 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 import { FiEdit2 } from "react-icons/fi";
-import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
+import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
 import api from "../../../services/api";
+import Modal from "react-modal";
+import { ThreeDots } from "react-loader-spinner";
+import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
+
+Modal.setAppElement(".root");
 
 export default function PostsLists({
   likes,
@@ -34,15 +41,39 @@ export default function PostsLists({
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const navigation = useNavigate();
+  const { auth } = useAuth();
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  async function handleDelete(id) {
+    document.location.reload(true);
+    setIsOpen(false);
+    setLoading(false);
+
+    try {
+      await api.deletePost(id, auth);
+      setLoading(false);
+    } catch (error) {
+      alert("Erro ao apagar o post. Tente novamente");
+    }
+  }
+
   function handleClick(link) {
     window.open(link);
   }
 
   function handleChange(e, post) {
     e.preventDefault();
-    navigation(`/user/${post.userId}`, {state: {username: post.username}});
+    navigation(`/user/${post.userId}`);
     window.location.reload();
   }
 
@@ -58,7 +89,7 @@ export default function PostsLists({
   }
 
   async function enterKeyPress(e) {
-    if (e.keyCode === 13 && edit) {
+    if (e.keyCode == 13 && edit) {
       setLoading(true);
       const token = JSON.parse(localStorage.getItem("auth"));
       try {
@@ -71,7 +102,7 @@ export default function PostsLists({
       } catch (error) {
         alert(error);
       }
-    } else if (e.keyCode === 27) {
+    } else if (e.keyCode == 27) {
       setDesc(ref.current._wrapperState.initialValue);
       setEdit(false);
     }
@@ -118,7 +149,33 @@ export default function PostsLists({
                   {post.username}
                 </PostUser>
                 {user.id === post.userId ? (
-                  <FiEdit2 onClick={(e) => editPost(e, post)} />
+                  <div>
+                    <FiEdit2 onClick={(e) => editPost(e, post)} />
+                    <FiTrash2 onClick={openModal} />
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={closeModal}
+                      style={CustomStyles}
+                    >
+                      <h2>
+                        Are you sure you want <br />
+                        to delete this post?{" "}
+                      </h2>
+                      <Form>
+                        <Cancel onClick={closeModal}>No, go back</Cancel>
+                        <Delete
+                          onClick={() => handleDelete(post.id)}
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <ThreeDots color="#ffffff" height={20} width={20} />
+                          ) : (
+                            "yes, delete it"
+                          )}
+                        </Delete>
+                      </Form>
+                    </Modal>
+                  </div>
                 ) : (
                   <></>
                 )}

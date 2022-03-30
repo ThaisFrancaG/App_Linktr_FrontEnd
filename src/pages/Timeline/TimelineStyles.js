@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   /* width: 100vw; */
-  justify-content: space-around;
   height: 100%;
 `;
 const HeaderComponent = styled.div`

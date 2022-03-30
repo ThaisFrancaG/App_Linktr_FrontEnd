@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
-//const BASE_URL = "https://projeto-linkr.herokuapp.com";
+// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -78,6 +78,11 @@ async function updatePosts(token, body) {
   return await axios.put(`${BASE_URL}/post`, body, config);
 }
 
+async function deletePost(id, token) {
+  const config = authData(token);
+  return await axios.delete(`${BASE_URL}/post/${id}`, config);
+}
+
 async function getFollowing(token) {
   const config = authData(token);
   return await axios.get(`${BASE_URL}/follow`, config);
@@ -102,6 +107,7 @@ const api = {
   toggleLike,
   getLikes,
   updatePosts,
+  deletePost,
   getFollowing,
   toggleFollowing,
 };
