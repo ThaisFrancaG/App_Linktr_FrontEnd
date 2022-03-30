@@ -4,25 +4,35 @@ import api from "../../../services/api";
 
 import { Button } from "./ButtonStyle";
 
-function FollowButton({ display, pageInfo }) {
+function FollowButton({ display, pageInfo, following }) {
   const { auth } = useAuth();
   const [buttonStatus, setButtonStatus] = useState(true);
   const [isFollowing, setFollowing] = useState(false);
 
   async function checkIfFollowing() {
     try {
+      setButtonStatus(true);
       const response = await api.getFollowing(auth);
       const following = response.data;
-
-      setButtonStatus(false);
-
+      console.table(following);
+      console.log(typeof pageInfo);
+      let alreadyFollowing = 0;
       for (let i = 0; i < following.length; i++) {
-        if (following[i].followingId === pageInfo) {
+        console.log(typeof following[i].followingId);
+
+        console.log(following[i].followingId === pageInfo);
+        if (following[i].followingId == pageInfo) {
+          alert("is following");
           setFollowing(true);
-          return;
+          setButtonStatus(false);
+          alreadyFollowing++;
         }
+      }
+      console.log(alreadyFollowing);
+      if (alreadyFollowing === 0) {
         setFollowing(false);
       }
+      setButtonStatus(false);
     } catch (error) {
       setButtonStatus(false);
       console.log(error);
@@ -33,8 +43,8 @@ function FollowButton({ display, pageInfo }) {
     setButtonStatus(true);
 
     try {
-      const { data } = await api.toggleFollowing(auth, parseInt(pageInfo));
-      checkIfFollowing();
+      await api.toggleFollowing(auth, parseInt(pageInfo));
+      isFollowing ? setFollowing(false) : setFollowing(true);
     } catch (error) {
       alert("Something went wrong, please wait before trying again");
 
@@ -44,15 +54,14 @@ function FollowButton({ display, pageInfo }) {
   }
 
   useEffect(() => {
-    setButtonStatus(true);
     checkIfFollowing();
   }, []);
-
+  console.log(`is following? ${isFollowing}`);
   return (
     <>
       <Button
         onClick={() => handleClick()}
-        display={display}
+        show={display}
         disabled={buttonStatus}
         following={isFollowing}
       >

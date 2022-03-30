@@ -4,7 +4,6 @@ import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
 import { Container, TimelineTitle } from "./TimelineStyles";
-
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 import Header from "./Header";

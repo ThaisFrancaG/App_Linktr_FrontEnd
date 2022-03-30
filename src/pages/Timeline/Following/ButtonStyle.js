@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  display: ${(props) => (props.display ? "flex" : "none")};
+  display: ${(props) => (props.show ? "flex" : "none")};
 
   width: 112px;
   height: 31px;
