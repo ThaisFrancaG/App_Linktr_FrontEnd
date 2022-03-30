@@ -17,7 +17,7 @@ function Hashtags() {
   async function handleTrendings() {
     const token = JSON.parse(localStorage.getItem("auth"));
     if (!token) {
-      alert("Tou have to be logged in!");
+      alert("You have to be logged in!");
       navigation("/");
       return;
     }

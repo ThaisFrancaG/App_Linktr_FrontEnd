@@ -6,7 +6,6 @@ import { Button } from "./ButtonStyle";
 
 function FollowButton({ display, pageInfo }) {
   const { auth } = useAuth();
-  const [buttonText, setButtonText] = useState("loading");
   const [buttonStatus, setButtonStatus] = useState(true);
   const [isFollowing, setFollowing] = useState(false);
 
@@ -14,44 +13,50 @@ function FollowButton({ display, pageInfo }) {
     try {
       const response = await api.getFollowing(auth);
       const following = response.data;
-      console.log(following);
+
+      setButtonStatus(false);
+
       for (let i = 0; i < following.length; i++) {
         if (following[i].followingId === pageInfo) {
-          alert("caiu aqui");
           setFollowing(true);
-          setButtonText("following");
           return;
         }
+        setFollowing(false);
       }
     } catch (error) {
+      setButtonStatus(false);
       console.log(error);
     }
   }
 
   async function handleClick() {
+    setButtonStatus(true);
+
     try {
       const { data } = await api.toggleFollowing(auth, parseInt(pageInfo));
-      console.log(data);
+      checkIfFollowing();
     } catch (error) {
+      alert("Something went wrong, please wait before trying again");
+
       console.log(error);
     }
     setButtonStatus(false);
   }
 
   useEffect(() => {
+    setButtonStatus(true);
     checkIfFollowing();
-    console.log(isFollowing);
-    console.log(buttonText);
-  }, [isFollowing]);
+  }, []);
 
   return (
     <>
       <Button
         onClick={() => handleClick()}
         display={display}
-        disable={buttonStatus}
+        disabled={buttonStatus}
+        following={isFollowing}
       >
-        {buttonText}
+        {buttonStatus ? "Loading" : isFollowing ? "Unfollow" : "Follow"}
       </Button>
     </>
   );

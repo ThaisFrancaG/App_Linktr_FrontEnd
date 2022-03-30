@@ -6,8 +6,14 @@ const Button = styled.button`
   width: 112px;
   height: 31px;
 
-  background-color: #1877f2;
-  color: #ffffff;
+  background-color: ${(props) =>
+    props.disabled ? "#FFFFFF" : props.following ? "#ffffff" : "#1877f2"};
+
+  color: ${(props) =>
+    props.disabled ? "#1877f2" : props.following ? "#1877f2" : "#ffffff"};
+
+  justify-content: center;
+  align-items: center;
 
   border: none;
   border-radius: 5px;
