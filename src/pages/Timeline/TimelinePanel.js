@@ -9,6 +9,7 @@ import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
+import FollowButton from "./Following/FollowButton";
 
 function Timeline() {
   const { auth } = useAuth();
@@ -18,7 +19,7 @@ function Timeline() {
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [following, setFollowing] = useState([]);
   const location = useLocation();
   const { hashtag } = useParams();
 
@@ -77,6 +78,15 @@ function Timeline() {
       console.log(error);
     }
   }
+
+  async function checkFollowing() {
+    try {
+      const { data } = await api.getFollowing(auth);
+      setFollowing(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     getUser();
   }, []);
@@ -84,6 +94,7 @@ function Timeline() {
   useEffect(() => {
     loadPosts();
     getWhoLiked();
+    checkFollowing();
     setReloadPosts(false);
   }, [reloadPosts]);
 
@@ -98,6 +109,17 @@ function Timeline() {
               : `# ${hashtag}`
             : "timeline"}
         </TimelineTitle>
+
+        {location.pathname !== "/timeline" ? (
+          <FollowButton
+            display={true}
+            pageInfo={posts[0]?.userId}
+            following={following}
+          />
+        ) : (
+          <FollowButton display={false} />
+        )}
+
         {location.pathname !== "/timeline" ? (
           <></>
         ) : (
