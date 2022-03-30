@@ -6,6 +6,7 @@ import {
   PostComment,
   PostUser,
   UsenameContainer,
+  Container
 } from "../PostStyle";
 import LikesDisplay from "./LikesPost";
 import {
@@ -21,6 +22,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import ReactHashtag from "@mdnm/react-hashtag";
 import api from "../../../services/api";
+import CommentsComponent from "./Comments";
 
 export default function PostsLists({
   likes,
@@ -101,66 +103,69 @@ export default function PostsLists({
     <>
       {posts[0].id ? (
         posts.map((post) => (
-          <ReadContainer key={post.id}>
-            <ProfileContainer>
-              <img src={post.userPic} alt="profile pic" />
-              <LikesDisplay
-                postId={post.id}
-                likesNumber={post.likes_count}
-                likedByUser={post.likedByUser}
-                likes={likes}
-                user={user}
-              />
-            </ProfileContainer>
-            <InfoContainer>
-              <UsenameContainer>
-                <PostUser onClick={(e) => handleChange(e, post)}>
-                  {post.username}
-                </PostUser>
-                {user.id === post.userId ? (
-                  <FiEdit2 onClick={(e) => editPost(e, post)} />
-                ) : (
-                  <></>
-                )}
-              </UsenameContainer>
-              {edit && postEditId === post.id ? (
-                <FormInput
-                  value={descEdit}
-                  defaultValue={post.description}
-                  type="text"
-                  ref={ref}
-                  disabled={loading}
-                  onChange={(e) => setDesc(e.target.value)}
+          <Container>
+            <ReadContainer key={post.id}>
+              <ProfileContainer>
+                <img src={post.userPic} alt="profile pic" />
+                <LikesDisplay
+                  postId={post.id}
+                  likesNumber={post.likes_count}
+                  likedByUser={post.likedByUser}
+                  likes={likes}
+                  user={user}
                 />
-              ) : (
-                <PostComment>
-                  <ReactHashtag
-                    renderHashtag={(hashtag) => (
-                      <span
-                        onClick={() =>
-                          navigation(`/hashtag/${hashtag.substr(1)}`)
-                        }
-                      >
-                        {hashtag}
-                      </span>
-                    )}
-                  >
-                    {post.description}
-                  </ReactHashtag>
-                </PostComment>
-              )}
-              <PostBanner onClick={() => handleClick(post.link)}>
-                <LinkInfo>
-                  <LinkTitle>{post.linkName}</LinkTitle>
-                  <LinkDesc>{post.linkDesc}</LinkDesc>
-                  <LinkUrl>{post.link}</LinkUrl>
-                </LinkInfo>
-                <LinkImage>
-                  <img src={post.linkBanner} alt="profile pic" />
-                </LinkImage>
-              </PostBanner>
-            </InfoContainer>
-          </ReadContainer>
+              </ProfileContainer>
+              <InfoContainer>
+                <UsenameContainer>
+                  <PostUser onClick={(e) => handleChange(e, post)}>
+                    {post.username}
+                  </PostUser>
+                  {user.id === post.userId ? (
+                    <FiEdit2 onClick={(e) => editPost(e, post)} />
+                  ) : (
+                    <></>
+                  )}
+                </UsenameContainer>
+                {edit && postEditId === post.id ? (
+                  <FormInput
+                    value={descEdit}
+                    defaultValue={post.description}
+                    type="text"
+                    ref={ref}
+                    disabled={loading}
+                    onChange={(e) => setDesc(e.target.value)}
+                  />
+                ) : (
+                  <PostComment>
+                    <ReactHashtag
+                      renderHashtag={(hashtag) => (
+                        <span
+                          onClick={() =>
+                            navigation(`/hashtag/${hashtag.substr(1)}`)
+                          }
+                        >
+                          {hashtag}
+                        </span>
+                      )}
+                    >
+                      {post.description}
+                    </ReactHashtag>
+                  </PostComment>
+                )}
+                <PostBanner onClick={() => handleClick(post.link)}>
+                  <LinkInfo>
+                    <LinkTitle>{post.linkName}</LinkTitle>
+                    <LinkDesc>{post.linkDesc}</LinkDesc>
+                    <LinkUrl>{post.link}</LinkUrl>
+                  </LinkInfo>
+                  <LinkImage>
+                    <img src={post.linkBanner} alt="profile pic" />
+                  </LinkImage>
+                </PostBanner>
+              </InfoContainer>
+            </ReadContainer>
+            <CommentsComponent />
+          </Container>
         ))
       ) : (
         <></>

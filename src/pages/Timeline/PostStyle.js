@@ -28,6 +28,9 @@ const WriteContainer = styled.div`
   background-color: blue;
 `;
 
+const Container = styled.div`
+`;
+
 const FormContainer = styled.form`
   display: flex;
   flex-wrap: wrap;
@@ -82,7 +85,7 @@ const ReadContainer = styled.article`
   width: 100%;
   height: 280px;
   display: flex;
-
+  z-index: 200;
   background-color: #171717;
 
   border-radius: 16px;
@@ -203,4 +206,5 @@ export {
   Input,
   Button,
   UsenameContainer,
+  Container,
 };
