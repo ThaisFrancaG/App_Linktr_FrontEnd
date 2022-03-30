@@ -79,9 +79,9 @@ async function updatePosts(token, body) {
   return await axios.put(`${BASE_URL}/post`, body, config);
 }
 
-async function deletePost(token, id) {
+async function deletePost(id, token) {
   const config = authData(token);
-  return await axios.delete(`${BASE_URL}/post`, config, id);
+  return await axios.delete(`${BASE_URL}/post/${id}`, config);
 }
 
 const api = {
