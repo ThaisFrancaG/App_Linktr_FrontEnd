@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import { Container, TimelineTitle } from "./TimelineStyles";
+import { Container, TimelineContainer, TimelineTitle } from "./TimelineStyles";
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
@@ -11,8 +11,22 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
+function TimelineName ({state, hashtag}) {
+  const location = useLocation();
+  return (
+    <TimelineTitle>
+      {location.pathname !== "/timeline"
+        ? location.pathname !== `/hashtag/${hashtag}`
+          ? `${state.username}'s posts`
+          : `# ${hashtag}`
+        : "timeline"}
+    </TimelineTitle>
+  )
+}
+
 function Timeline() {
   const { auth } = useAuth();
+  const { state } = useLocation();
   const navigation = useNavigate();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
@@ -101,49 +115,45 @@ function Timeline() {
   return (
     <Container>
       <Header user={user} />
-      <PostContainer>
-        <TimelineTitle>
-          {location.pathname !== "/timeline"
-            ? location.pathname !== `/hashtag/${hashtag}`
-              ? `${posts[0]?.username}'s posts`
-              : `# ${hashtag}`
-            : "timeline"}
-        </TimelineTitle>
+      <TimelineContainer>
+        <PostContainer>
+          <TimelineName state={state} hashtag={hashtag} />
 
-        {location.pathname !== "/timeline" ? (
-          <FollowButton
-            display={true}
-            pageInfo={posts[0]?.userId}
-            following={following}
-          />
-        ) : (
-          <FollowButton display={false} />
-        )}
+          {location.pathname !== "/timeline" ? (
+            <FollowButton
+              display={true}
+              pageInfo={posts[0]?.userId}
+              following={following}
+            />
+          ) : (
+            <FollowButton display={false} />
+          )}
 
-        {location.pathname !== "/timeline" ? (
-          <></>
-        ) : (
-          <PublishCard
-            user={user}
-            setReloadPosts={setReloadPosts}
-            setLoading={setLoading}
-          />
-        )}
-        {loading ? (
-          <>Loading...</>
-        ) : typeof posts[0] === "string" ? (
-          posts
-        ) : (
-          <PostsLists
-            posts={posts}
-            user={user}
-            loadPosts={loadPosts}
-            getWhoLiked={getWhoLiked}
-            likes={likes}
-          />
-        )}
-      </PostContainer>
-      <Hashtags />
+          {location.pathname !== "/timeline" ? (
+            <></>
+          ) : (
+            <PublishCard
+              user={user}
+              setReloadPosts={setReloadPosts}
+              setLoading={setLoading}
+            />
+          )}
+          {loading ? (
+            <>Loading...</>
+          ) : typeof posts[0] === "string" ? (
+            posts
+          ) : (
+            <PostsLists
+              posts={posts}
+              user={user}
+              loadPosts={loadPosts}
+              getWhoLiked={getWhoLiked}
+              likes={likes}
+            />
+          )}
+        </PostContainer>
+        <Hashtags />
+      </TimelineContainer>
     </Container>
   );
 }

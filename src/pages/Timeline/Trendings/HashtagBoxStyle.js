@@ -8,14 +8,14 @@ const Container = styled.div`
 
   width: 301px;
   height: 406px;
-
-  top: 160px;
+  margin-left: 30px;
+  top: 152px;
   right: 0px;
 
   border-radius: 16px;
   background-color: #171717;
 
-  margin-top: 150px;
+  margin-top: 152px;
 
   @media (max-width: 375px) {
     display: none;

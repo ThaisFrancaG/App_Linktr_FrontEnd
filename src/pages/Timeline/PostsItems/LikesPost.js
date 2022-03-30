@@ -47,10 +47,10 @@ export default function LikesDisplay({
       <Icon liked={liked} onClick={() => handleLike()}>
         {liked ? <FaHeart /> : <FaRegHeart />}
       </Icon>
-      <LikesInfo>{numberLikes}Likes</LikesInfo>
+      <LikesInfo>{Number(numberLikes)} Likes</LikesInfo>
       <LikedBy>
-        {numberLikes === 0
-          ? liked === false
+        {numberLikes == 0
+          ? !liked
             ? `seja o primeiro a curtir!`
             : `Você`
           : liked === true
