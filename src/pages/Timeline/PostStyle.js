@@ -10,6 +10,7 @@ const PostContainer = styled.main`
   width: 611px;
   font-family: "Lato";
   overflow: hidden;
+  
   @media (max-width: 375px) {
     width: 100%;
     padding-top: 150px;
@@ -29,6 +30,7 @@ const WriteContainer = styled.div`
 `;
 
 const Container = styled.div`
+  position: relative;
 `;
 
 const FormContainer = styled.form`
@@ -87,7 +89,6 @@ const ReadContainer = styled.article`
   display: flex;
   z-index: 200;
   background-color: #171717;
-
   border-radius: 16px;
   padding: 20px;
   color: #ffffff;
@@ -193,6 +194,20 @@ const UsenameContainer = styled.div`
   }
 `;
 
+const CommentDisplay = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+
+  
+  svg {
+    margin-bottom: 3px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+`;
+
 export {
   PostContainer,
   WriteContainer,
@@ -207,4 +222,5 @@ export {
   Button,
   UsenameContainer,
   Container,
+  CommentDisplay
 };

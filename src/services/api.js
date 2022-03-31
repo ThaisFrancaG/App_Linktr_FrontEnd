@@ -88,6 +88,12 @@ async function toggleFollowing(token, followId) {
   return await axios.post(`${BASE_URL}/follow`, { userId: followId }, config);
 }
 
+async function postComment(token, body, postId) {
+  const config = authData(token);
+
+  return await axios.post(`${BASE_URL}/post/${postId}/comment`, body, config)
+}
+
 const api = {
   signIn,
   signUp,
@@ -104,6 +110,7 @@ const api = {
   updatePosts,
   getFollowing,
   toggleFollowing,
+  postComment
 };
 
 export default api;

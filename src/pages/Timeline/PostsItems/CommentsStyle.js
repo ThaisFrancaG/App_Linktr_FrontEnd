@@ -1,8 +1,9 @@
 import styled from "styled-components"
 
 const CommentsContainer = styled.div`
-	
+	padding-top: 15px;
 	background-color: #1E1E1E;
+	width: 100%;
 `;
 
 const PostComment = styled.div`

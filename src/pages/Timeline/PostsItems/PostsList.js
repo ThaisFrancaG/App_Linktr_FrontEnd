@@ -6,7 +6,8 @@ import {
   PostComment,
   PostUser,
   UsenameContainer,
-  Container
+  Container,
+  CommentDisplay
 } from "../PostStyle";
 import LikesDisplay from "./LikesPost";
 import {
@@ -18,6 +19,7 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 import { FiEdit2 } from "react-icons/fi";
+import { AiOutlineComment } from "react-icons/ai"
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import ReactHashtag from "@mdnm/react-hashtag";
@@ -32,10 +34,12 @@ export default function PostsLists({
   getWhoLiked,
 }) {
   const [postEditId, setEditId] = useState();
+  const [postCommentsId, setShowId] = useState();
   const [linkEdit, setLink] = useState();
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showComments, setShowComments] = useState(false)
   const ref = useRef();
   const navigation = useNavigate();
   function handleClick(link) {
@@ -57,6 +61,11 @@ export default function PostsLists({
     setEditId(post.id);
     setLink(post.link);
     setEdit(true);
+  }
+
+  function handleShowComments (post) {
+    setShowComments(!showComments);
+    setShowId(post.id)
   }
 
   async function enterKeyPress(e) {
@@ -114,6 +123,10 @@ export default function PostsLists({
                   likes={likes}
                   user={user}
                 />
+                <CommentDisplay onClick={() => handleShowComments(post)}>
+                  <AiOutlineComment />
+                  <span>{post.comment_count}</span>
+                </CommentDisplay>
               </ProfileContainer>
               <InfoContainer>
                 <UsenameContainer>
@@ -164,7 +177,10 @@ export default function PostsLists({
                 </PostBanner>
               </InfoContainer>
             </ReadContainer>
-            <CommentsComponent />
+            { showComments && 
+              postCommentsId === post.id && 
+              <CommentsComponent user={user} post={post}/>
+            }
           </Container>
         ))
       ) : (

@@ -1,7 +1,26 @@
 import { CommentImg, CommentInput, CommentsContainer, PostComment, WriteCommentContainer } from "./CommentsStyle";
 import { FiSend } from "react-icons/fi"
+import { useState } from "react";
+import api from "../../../services/api";
 
-function CommentsComponent () {
+function CommentsComponent ({user, post}) {
+	const [ comment, setComment ] = useState("");
+	const [ posted, setPosted] = useState(false);
+
+	async function handleClick() {
+		const token = JSON.parse(localStorage.getItem("auth"));
+		try {
+			console.log(user.id, post)
+			const response = await api.postComment(token, {comment, userId:user.id}, post.id)
+			console.log(response)
+			setPosted(true)
+		} catch(error) {
+			console.error(error)
+			return
+		}
+		setComment(" ")
+		setPosted(false)
+	}
 
 	return (
 		<CommentsContainer>
@@ -10,8 +29,10 @@ function CommentsComponent () {
 				<WriteCommentContainer>
 					<CommentInput 
 						placeholder="Write a comment ..."
+						value={comment}
+						onChange={e => setComment(e.target.value)}
 					/>
-					<FiSend />
+					<FiSend onClick={handleClick}/>
 				</WriteCommentContainer>
 			</PostComment>
 		</CommentsContainer>
