@@ -29,6 +29,7 @@ import CommentsComponent from "./Comments";
 import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
+import useAuth from "../../../hooks/userAuth";
 
 Modal.setAppElement(".root");
 

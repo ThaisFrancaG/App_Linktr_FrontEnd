@@ -5,6 +5,7 @@ const Container = styled.div`
   display: flex;
   /* width: 100vw; */
   height: 100%;
+  margin-bottom: 50px;
 `;
 const HeaderComponent = styled.div`
   position: fixed;
@@ -221,6 +222,9 @@ const SearchIcon = styled.div`
 
 const TimelineContainer = styled.div`
   display: flex;
+  justify-content: center;
+  margin: auto;
+
 `
 
 export {

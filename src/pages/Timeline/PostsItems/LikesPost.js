@@ -14,13 +14,13 @@ export default function LikesDisplay({
   const [liked, setLiked] = useState(likedByUser);
   const [numberLikes, setNumberLikes] = useState(likesNumber);
   const { auth } = useAuth();
-
+  console.log(liked)
   async function handleLike() {
     if (!auth) {
       return;
     }
     try {
-      await api.toggleLike(auth, postId, liked);
+      await api.toggleLike(auth, postId);
       liked ? setLiked(false) : setLiked(true);
       liked ? setNumberLikes(numberLikes - 1) : setNumberLikes(numberLikes + 1);
     } catch (error) {
@@ -54,14 +54,15 @@ export default function LikesDisplay({
             ? `seja o primeiro a curtir!`
             : `Você`
           : liked === true
-          ? numberLikes - 1 - whoLiked(postId).length === 0
+          ? Number(numberLikes) - 1 - whoLiked(postId).length === 0
             ? `Você`
             : `Você,${whoLiked(postId)} e outras ${
-                numberLikes - 1 - whoLiked(postId).length
+              Number(numberLikes) - 1 - whoLiked(postId).length
               } pessoas`
-          : `${whoLiked(postId)} e outras ${
-              numberLikes - whoLiked(postId).length
-            } pessoas`}
+          : Number(numberLikes) > 1 
+          ? `${whoLiked(postId)} e outras ${
+            Number(numberLikes) - whoLiked(postId).length
+            } pessoas` : `${whoLiked(postId)} curtiu`}
       </LikedBy>
     </Container>
   );
