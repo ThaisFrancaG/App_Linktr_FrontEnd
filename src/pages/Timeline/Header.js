@@ -81,7 +81,14 @@ function Header({ user }) {
 
   return (
     <HeaderComponent>
-      <Title onClick={() => navigation("/timeline")}>linktr </Title>
+      <Title
+        onClick={() => {
+          navigation("/timeline");
+          window.location.reload();
+        }}
+      >
+        linktr{" "}
+      </Title>
       <SearchContainer ref={ref}>
         <SearchBar>
           <DebounceContainer

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/userAuth";
 import api from "../../../services/api";
 
@@ -16,7 +16,6 @@ function FollowButton({ display, pageInfo }) {
       setButtonStatus(true);
       const response = await api.getFollowing(auth);
       const following = response.data;
-      console.table(following);
 
       let alreadyFollowing = 0;
       for (let i = 0; i < following.length; i++) {
