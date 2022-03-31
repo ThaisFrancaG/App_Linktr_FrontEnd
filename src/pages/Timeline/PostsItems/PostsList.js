@@ -7,9 +7,9 @@ import {
   PostUser,
   UsenameContainer,
   Container,
-  CommentDisplay
+  CommentDisplay,
+  IconsContainer,
 } from "../PostStyle";
-import LikesDisplay from "./LikesPost";
 import {
   PostBanner,
   LinkImage,
@@ -19,13 +19,15 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 import { FiEdit2 } from "react-icons/fi";
-import { AiOutlineComment } from "react-icons/ai"
+import { AiOutlineComment } from "react-icons/ai";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
 import api from "../../../services/api";
+import LikesDisplay from "./LikesPost";
 import CommentsComponent from "./Comments";
+import RepostDisplay from "./RepostDisplay";
 import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
@@ -46,7 +48,7 @@ export default function PostsLists({
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const navigation = useNavigate();
@@ -69,17 +71,17 @@ export default function PostsLists({
       await api.deletePost(id, auth);
       setLoading(false);
     } catch (error) {
-      alert("Erro ao apagar o post. Tente novamente");
+      alert("Something went wrong while deleting. Reload and try again");
     }
   }
-  
+
   function handleClick(link) {
     window.open(link);
   }
 
   function handleChange(e, post) {
     e.preventDefault();
-    navigation(`/user/${post.userId}`, {state: {username: post.username}});
+    navigation(`/user/${post.userId}`, { state: { username: post.username } });
     window.location.reload();
   }
 
@@ -94,9 +96,9 @@ export default function PostsLists({
     setEdit(true);
   }
 
-  function handleShowComments (post) {
+  function handleShowComments(post) {
     setShowComments(!showComments);
-    setShowId(post.id)
+    setShowId(post.id);
   }
 
   async function enterKeyPress(e) {
@@ -147,17 +149,20 @@ export default function PostsLists({
             <ReadContainer key={post.id}>
               <ProfileContainer>
                 <img src={post.userPic} alt="profile pic" />
-                <LikesDisplay
-                  postId={post.id}
-                  likesNumber={post.likes_count}
-                  likedByUser={post.likedByUser}
-                  likes={likes}
-                  user={user}
-                />
-                <CommentDisplay onClick={() => handleShowComments(post)}>
-                  <AiOutlineComment />
-                  <span>{post.comment_count}</span>
-                </CommentDisplay>
+                <IconsContainer>
+                  <LikesDisplay
+                    postId={post.id}
+                    likesNumber={post.likes_count}
+                    likedByUser={post.likedByUser}
+                    likes={likes}
+                    user={user}
+                  />
+                  <CommentDisplay onClick={() => handleShowComments(post)}>
+                    <AiOutlineComment />
+                    <span>{post.comment_count}</span>
+                  </CommentDisplay>
+                  <RepostDisplay postId={post.id} />
+                </IconsContainer>
               </ProfileContainer>
               <InfoContainer>
                 <UsenameContainer>
@@ -184,7 +189,11 @@ export default function PostsLists({
                             disabled={loading}
                           >
                             {loading ? (
-                              <ThreeDots color="#ffffff" height={20} width={20} />
+                              <ThreeDots
+                                color="#ffffff"
+                                height={20}
+                                width={20}
+                              />
                             ) : (
                               "yes, delete it"
                             )}
@@ -234,10 +243,9 @@ export default function PostsLists({
                 </PostBanner>
               </InfoContainer>
             </ReadContainer>
-            { showComments && 
-              postCommentsId === post.id && 
-              <CommentsComponent user={user} post={post} load={showComments}/>
-            }
+            {showComments && postCommentsId === post.id && (
+              <CommentsComponent user={user} post={post} load={showComments} />
+            )}
           </Container>
         ))
       ) : (

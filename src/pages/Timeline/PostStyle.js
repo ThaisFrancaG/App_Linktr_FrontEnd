@@ -10,7 +10,7 @@ const PostContainer = styled.main`
   width: 611px;
   font-family: "Lato";
   overflow: hidden;
-  
+
   @media (max-width: 375px) {
     width: 100%;
     padding-top: 150px;
@@ -33,7 +33,7 @@ const Container = styled.div`
   position: relative;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 `;
 
 const FormContainer = styled.form`
@@ -209,14 +209,18 @@ const CommentDisplay = styled.div`
   align-items: center;
   margin-top: 15px;
 
-  
   svg {
     margin-bottom: 3px;
     font-size: 20px;
     cursor: pointer;
   }
 `;
-
+const IconsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 export {
   PostContainer,
   WriteContainer,
@@ -231,5 +235,6 @@ export {
   Button,
   UsenameContainer,
   Container,
-  CommentDisplay
+  CommentDisplay,
+  IconsContainer,
 };
