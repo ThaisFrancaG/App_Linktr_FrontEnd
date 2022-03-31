@@ -33,8 +33,8 @@ function FollowButton({ display, pageInfo }) {
     setButtonStatus(true);
 
     try {
-      const { data } = await api.toggleFollowing(auth, parseInt(pageInfo));
-      checkIfFollowing();
+      await api.toggleFollowing(auth, parseInt(pageInfo));
+      isFollowing ? setFollowing(false) : setFollowing(true);
     } catch (error) {
       alert("Something went wrong, please wait before trying again");
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BASE_URL = "http://localhost:5000";
-const BASE_URL = "https://projeto-linkr.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
+//const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -62,9 +62,13 @@ async function getUsers(name, token) {
 
 async function toggleLike(token, postId) {
   const config = authData(token);
-  return await axios.post(`${BASE_URL}/likes`, {
-    postId: postId,
-  }, config);
+  return await axios.post(
+    `${BASE_URL}/likes`,
+    {
+      postId: postId,
+    },
+    config
+  );
 }
 
 async function getLikes(token, postId) {
@@ -94,12 +98,12 @@ async function toggleFollowing(token, followId) {
 
 async function postComment(token, body, postId) {
   const config = authData(token);
-  return await axios.post(`${BASE_URL}/post/${postId}/comment`, body, config)
+  return await axios.post(`${BASE_URL}/post/${postId}/comment`, body, config);
 }
 
 async function getComments(token, postId) {
   const config = authData(token);
-  return await axios.get(`${BASE_URL}/post/${postId}/comment`, config)
+  return await axios.get(`${BASE_URL}/post/${postId}/comment`, config);
 }
 
 const api = {
@@ -120,7 +124,7 @@ const api = {
   getFollowing,
   toggleFollowing,
   postComment,
-  getComments
+  getComments,
 };
 
 export default api;
