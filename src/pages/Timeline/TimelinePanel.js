@@ -75,6 +75,7 @@ function Timeline() {
       } else {
         response = await api.getPublications(token);
       }
+      
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
