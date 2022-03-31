@@ -13,20 +13,23 @@ function FollowButton({ display, pageInfo }) {
 
   async function checkIfFollowing(id) {
     try {
+      setButtonStatus(true);
       const response = await api.getFollowing(auth);
       const following = response.data;
+      console.table(following);
 
-      setButtonStatus(false);
+      let alreadyFollowing = 0;
       for (let i = 0; i < following.length; i++) {
-        console.log(following[i].followingId === id);
-        console.log(following[i]);
-
-        if (following[i].followingId === id) {
+        if (following[i].followingId === parseInt(id)) {
           setFollowing(true);
-          return;
+          setButtonStatus(false);
+          alreadyFollowing++;
         }
+      }
+      if (alreadyFollowing === 0) {
         setFollowing(false);
       }
+      setButtonStatus(false);
     } catch (error) {
       setButtonStatus(false);
       console.log(error);
