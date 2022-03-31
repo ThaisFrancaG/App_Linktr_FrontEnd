@@ -61,10 +61,10 @@ function Header({ user }) {
     }
   }
 
-  function goToUser({ id }) {
+  function goToUser({ id, username }) {
     setSelected("");
     setShowList(false);
-    navigation(`/user/${id}`);
+    navigation(`/user/${id}`, {state: {username}});
     window.location.reload();
   }
 

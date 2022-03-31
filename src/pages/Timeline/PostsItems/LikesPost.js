@@ -14,7 +14,6 @@ export default function LikesDisplay({
   const [liked, setLiked] = useState(likedByUser);
   const [numberLikes, setNumberLikes] = useState(likesNumber);
   const { auth } = useAuth();
-  console.log(liked)
   async function handleLike() {
     if (!auth) {
       return;
@@ -22,7 +21,7 @@ export default function LikesDisplay({
     try {
       await api.toggleLike(auth, postId);
       liked ? setLiked(false) : setLiked(true);
-      liked ? setNumberLikes(numberLikes - 1) : setNumberLikes(numberLikes + 1);
+      liked ? setNumberLikes(Number(numberLikes) - 1) : setNumberLikes(Number(numberLikes) + 1);
     } catch (error) {
       console.error(error);
     }
