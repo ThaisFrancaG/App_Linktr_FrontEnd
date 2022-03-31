@@ -179,7 +179,7 @@ export default function PostsLists({
             </ReadContainer>
             { showComments && 
               postCommentsId === post.id && 
-              <CommentsComponent user={user} post={post}/>
+              <CommentsComponent user={user} post={post} load={showComments}/>
             }
           </Container>
         ))

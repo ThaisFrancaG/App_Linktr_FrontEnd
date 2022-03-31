@@ -31,6 +31,9 @@ const WriteContainer = styled.div`
 
 const Container = styled.div`
   position: relative;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #1E1E1E;
 `;
 
 const FormContainer = styled.form`
