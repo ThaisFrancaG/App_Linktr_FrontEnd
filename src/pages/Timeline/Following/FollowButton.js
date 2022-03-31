@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/userAuth";
 import api from "../../../services/api";
 
@@ -8,21 +9,26 @@ function FollowButton({ display, pageInfo }) {
   const { auth } = useAuth();
   const [buttonStatus, setButtonStatus] = useState(true);
   const [isFollowing, setFollowing] = useState(false);
+  const location = useLocation();
 
-  async function checkIfFollowing() {
+  async function checkIfFollowing(id) {
     try {
+      setButtonStatus(true);
       const response = await api.getFollowing(auth);
       const following = response.data;
 
-      setButtonStatus(false);
-
+      let alreadyFollowing = 0;
       for (let i = 0; i < following.length; i++) {
-        if (following[i].followingId === pageInfo) {
+        if (following[i].followingId === parseInt(id)) {
           setFollowing(true);
-          return;
+          setButtonStatus(false);
+          alreadyFollowing++;
         }
+      }
+      if (alreadyFollowing === 0) {
         setFollowing(false);
       }
+      setButtonStatus(false);
     } catch (error) {
       setButtonStatus(false);
       console.log(error);
@@ -33,8 +39,8 @@ function FollowButton({ display, pageInfo }) {
     setButtonStatus(true);
 
     try {
-      const { data } = await api.toggleFollowing(auth, parseInt(pageInfo));
-      checkIfFollowing();
+      await api.toggleFollowing(auth, parseInt(pageInfo));
+      isFollowing ? setFollowing(false) : setFollowing(true);
     } catch (error) {
       alert("Something went wrong, please wait before trying again");
 
@@ -44,8 +50,10 @@ function FollowButton({ display, pageInfo }) {
   }
 
   useEffect(() => {
+    const path = location.pathname;
+    const id = path.split("/")[2];
     setButtonStatus(true);
-    checkIfFollowing();
+    checkIfFollowing(id);
   }, []);
 
   return (

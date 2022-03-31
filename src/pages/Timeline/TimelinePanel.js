@@ -11,7 +11,7 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
-function TimelineName ({state, hashtag}) {
+function TimelineName({ state, hashtag }) {
   const location = useLocation();
   return (
     <TimelineTitle>
@@ -21,7 +21,7 @@ function TimelineName ({state, hashtag}) {
           : `# ${hashtag}`
         : "timeline"}
     </TimelineTitle>
-  )
+  );
 }
 
 function Timeline() {
@@ -75,12 +75,12 @@ function Timeline() {
       } else {
         response = await api.getPublications(token);
       }
-      
+
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
       alert(
-        "An error occured while trying to fetch the posts, please refresh the page AQUI"
+        "An error occured while trying to fetch the posts, please refresh the page"
       );
     }
   }
@@ -120,7 +120,8 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {location.pathname !== "/timeline" ? (
+          {location.pathname !== "/timeline" &&
+          location.pathname.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}
