@@ -11,7 +11,7 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
-function TimelineName ({state, hashtag}) {
+function TimelineName({ state, hashtag }) {
   const location = useLocation();
   return (
     <TimelineTitle>
@@ -21,7 +21,7 @@ function TimelineName ({state, hashtag}) {
           : `# ${hashtag}`
         : "timeline"}
     </TimelineTitle>
-  )
+  );
 }
 
 function Timeline() {
@@ -75,7 +75,7 @@ function Timeline() {
       } else {
         response = await api.getPublications(token);
       }
-      
+
       setPosts(response.data);
       setLoading(false);
     } catch (error) {

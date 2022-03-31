@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../../hooks/userAuth";
 import api from "../../../services/api";
 
@@ -8,16 +9,19 @@ function FollowButton({ display, pageInfo }) {
   const { auth } = useAuth();
   const [buttonStatus, setButtonStatus] = useState(true);
   const [isFollowing, setFollowing] = useState(false);
+  const location = useLocation();
 
-  async function checkIfFollowing() {
+  async function checkIfFollowing(id) {
     try {
       const response = await api.getFollowing(auth);
       const following = response.data;
 
       setButtonStatus(false);
-
       for (let i = 0; i < following.length; i++) {
-        if (following[i].followingId === pageInfo) {
+        console.log(following[i].followingId === id);
+        console.log(following[i]);
+
+        if (following[i].followingId === id) {
           setFollowing(true);
           return;
         }
@@ -44,8 +48,10 @@ function FollowButton({ display, pageInfo }) {
   }
 
   useEffect(() => {
+    const path = location.pathname;
+    const id = path.split("/")[2];
     setButtonStatus(true);
-    checkIfFollowing();
+    checkIfFollowing(id);
   }, []);
 
   return (
