@@ -154,7 +154,7 @@ export default function PostsLists({
               <Icon>
                 <BiRepost />
               </Icon>
-              Re-posted by {post.userId}
+              Re-posted by {post.repostUsername}
             </RepostContainer>
             <ReadContainer key={post.id}>
               <ProfileContainer>
