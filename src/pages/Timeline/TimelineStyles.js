@@ -20,7 +20,7 @@ const HeaderComponent = styled.div`
   width: 100vw;
   padding: 0 20px;
   background-color: #151515;
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     position: absolute;
     width: 100vw;
   }
@@ -155,7 +155,7 @@ const SearchContainer = styled.div`
     border-bottom-right-radius: 10px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     position: absolute;
     top: 70px;
     left: 0;
@@ -173,7 +173,7 @@ const DebounceContainer = styled(DebounceInput)`
     outline: none;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     border-bottom-left-radius: 10px;
 
     :focus {
