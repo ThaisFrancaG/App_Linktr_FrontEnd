@@ -10,8 +10,11 @@ import {
   CommentDisplay,
   PostUser,
   UsenameContainer,
+  Container,
+  CommentDisplay,
+  IconsContainer,
+  RepostContainer,
 } from "../PostStyle";
-import LikesDisplay from "./LikesPost";
 import {
   PostBanner,
   LinkImage,
@@ -22,14 +25,22 @@ import {
 } from "./SnippetStyle";
 import { AiOutlineComment } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
+import { BiRepost } from "react-icons/bi";
+
+import { AiOutlineComment } from "react-icons/ai";
+import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
-import CommentsComponent from "./Comments";
 import api from "../../../services/api";
+import LikesDisplay from "./LikesPost";
+import CommentsComponent from "./Comments";
+import RepostDisplay from "./RepostDisplay";
 import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
+import useAuth from "../../../hooks/userAuth";
+import { Icon } from "./LikesStyle";
 
 Modal.setAppElement(".root");
 
@@ -45,9 +56,9 @@ export default function PostsLists({
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [postCommentsId, setShowId] = useState();
-  const [showComments, setShowComments] = useState(false);
   const ref = useRef();
   const navigation = useNavigate();
   const { auth } = useAuth();
@@ -69,7 +80,7 @@ export default function PostsLists({
       await api.deletePost(id, auth);
       setLoading(false);
     } catch (error) {
-      alert("Erro ao apagar o post. Tente novamente");
+      alert("Something went wrong while deleting. Reload and try again");
     }
     document.location.reload(true);
   }
@@ -145,20 +156,32 @@ export default function PostsLists({
       {posts[0].id ? (
         posts.map((post) => (
           <Container>
+            <RepostContainer display={post.isRepost}>
+              <Icon>
+                <BiRepost />
+              </Icon>
+              Re-posted by {post.userId}
+            </RepostContainer>
             <ReadContainer key={post.id}>
               <ProfileContainer>
                 <img src={post.userPic} alt="profile pic" />
-                <LikesDisplay
-                  postId={post.id}
-                  likesNumber={post.likes_count}
-                  likedByUser={post.likedByUser}
-                  likes={likes}
-                  user={user}
-                />
-                <CommentDisplay onClick={() => handleShowComments(post)}>
-                  <AiOutlineComment />
-                  <span>{post.comment_count}</span>
-                </CommentDisplay>
+                <IconsContainer>
+                  <LikesDisplay
+                    postId={post.id}
+                    likesNumber={post.likes_count}
+                    likedByUser={post.likedByUser}
+                    likes={likes}
+                    user={user}
+                  />
+                  <CommentDisplay onClick={() => handleShowComments(post)}>
+                    <AiOutlineComment />
+                    <span>{post.comment_count}</span>
+                  </CommentDisplay>
+                  <RepostDisplay
+                    postId={post.id}
+                    reposts={post.reposts_count}
+                  />
+                </IconsContainer>
               </ProfileContainer>
               <InfoContainer>
                 <UsenameContainer>

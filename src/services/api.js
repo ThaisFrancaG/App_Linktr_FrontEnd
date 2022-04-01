@@ -104,8 +104,20 @@ async function postComment(token, body, postId) {
 async function getComments(token, postId) {
   const config = authData(token);
   return await axios.get(`${BASE_URL}/post/${postId}/comment`, config);
+
 }
 
+async function addRepost(token, postId) {
+  
+  const config = authData(token);
+  return await axios.post(`${BASE_URL}/reposting`, { postId: postId }, config);
+
+}
+
+async function getRepost(token, postId) {
+  const config = authData(token);
+  return await axios.get(`${BASE_URL}/reposting`, { postId: postId }, config);
+}
 const api = {
   signIn,
   signUp,
@@ -125,6 +137,9 @@ const api = {
   toggleFollowing,
   postComment,
   getComments,
+
+  addRepost,
+
 };
 
 export default api;
