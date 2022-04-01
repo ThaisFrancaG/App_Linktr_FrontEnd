@@ -15,7 +15,8 @@
     "react-scripts": "^5.0.0",
     "styled": "^1.0.0",
     "styled-components": "^5.3.3",
-    "url-metadata": "^2.5.0"
+    "url-metadata": "^2.5.0",
+    "use-interval": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

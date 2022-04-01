@@ -57,7 +57,7 @@ export default function RepostDisplay({ postId, reposts }) {
           </Form>
         </Modal>
       </Icon>
-      {reposts}
+      {reposts} re-posts
     </RepostContainer>
   );
 }

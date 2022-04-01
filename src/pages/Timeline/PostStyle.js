@@ -219,6 +219,10 @@ const CommentDisplay = styled.div`
   align-items: center;
   margin-top: 15px;
 
+  span { 
+    font-size: 12px;
+  }
+
   svg {
     margin-bottom: 3px;
     font-size: 20px;

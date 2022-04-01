@@ -237,6 +237,23 @@ const TimelineContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: auto;
+
+`;
+
+const LoadMorePosts = styled.div`
+  width: 100%;
+  height: 50px;
+  border-radius: 15px;
+  background-color: #1877F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  svg {
+    margin-left: 10px;
+    font-weight: bold;
+  }
 `;
 
 export {
@@ -258,4 +275,5 @@ export {
   SearchIcon,
   SearchBar,
   TimelineContainer,
+  LoadMorePosts,
 };
