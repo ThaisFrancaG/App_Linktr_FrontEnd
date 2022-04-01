@@ -67,7 +67,6 @@ export default function PostsLists({
   }
 
   async function handleDelete(id, e) {
-    e.preventDefault();
     setIsOpen(false);
     e.preventDefault();
 
@@ -233,9 +232,10 @@ export default function PostsLists({
                     <ReactHashtag
                       renderHashtag={(hashtag) => (
                         <span
-                          onClick={() =>
-                            navigation(`/hashtag/${hashtag.substr(1)}`)
-                          }
+                          onClick={() => {
+                            navigation(`/hashtag/${hashtag.substr(1)}`);
+                            window.location.reload();
+                          }}
                         >
                           {hashtag}
                         </span>

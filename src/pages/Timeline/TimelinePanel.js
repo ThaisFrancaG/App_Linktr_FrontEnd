@@ -3,8 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import { Container, LoadMorePosts, TimelineContainer, TimelineTitle } from "./TimelineStyles";
-import { AiOutlineReload } from "react-icons/ai"
+import {
+  Container,
+  LoadMorePosts,
+  TimelineContainer,
+  TimelineTitle,
+} from "./TimelineStyles";
+import { AiOutlineReload } from "react-icons/ai";
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
@@ -35,27 +40,29 @@ function Timeline() {
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [loadHashtags, setLoadHashtags] = useState(false);
-  const [numPosts, setNumPosts ] = useState(0);
+  const [numPosts, setNumPosts] = useState(0);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
   const location = useLocation();
-  let path = location.pathname
+  let path = location.pathname;
   const { hashtag } = useParams();
   const token = JSON.parse(localStorage.getItem("auth"));
 
-  useInterval(async () => {
-    if (path === "/timeline" ) {
-      const { data : newPosts} = await api.getPublications(token);
+  useInterval(
+    async () => {
+      if (path === "/timeline") {
+        const { data: newPosts } = await api.getPublications(token);
 
-      const lastPostId = posts[0].id;
-      const newPostLastId = newPosts[0].id;
+        const lastPostId = posts[0].id;
+        const newPostLastId = newPosts[0].id;
 
-      setNumPosts(Number(newPostLastId) - Number(lastPostId));
-    }
-  }, path === "/timeline" ? 15000 : null)
+        setNumPosts(Number(newPostLastId) - Number(lastPostId));
+      }
+    },
+    path === "/timeline" ? 15000 : null
+  );
 
   async function getUser() {
-    
     if (!token) {
       alert("Please, reload and login again");
       navigation("/");
@@ -80,6 +87,7 @@ function Timeline() {
 
   async function loadPosts(newLocation = null) {
     path = newLocation ? newLocation.pathname : location.pathname;
+    console.log(path);
     let response;
     try {
       if (path.includes("/user/")) {
@@ -123,7 +131,7 @@ function Timeline() {
   }, []);
 
   useEffect(() => {
-    setNumPosts(0)
+    setNumPosts(0);
     loadPosts();
     getWhoLiked();
     checkFollowing();
@@ -138,8 +146,7 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {path !== "/timeline" &&
-          path.slice(0, 8) !== "/hashtag" ? (
+          {path !== "/timeline" && path.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}
@@ -158,12 +165,13 @@ function Timeline() {
               setLoading={setLoading}
             />
           )}
-          { numPosts ?
-            <LoadMorePosts 
-              onClick={() => setReloadPosts(true) }>{numPosts} new posts, load more! <AiOutlineReload />
-            </LoadMorePosts> :
+          {numPosts ? (
+            <LoadMorePosts onClick={() => setReloadPosts(true)}>
+              {numPosts} new posts, load more! <AiOutlineReload />
+            </LoadMorePosts>
+          ) : (
             <></>
-          }
+          )}
 
           {loading ? (
             <>Loading...</>
@@ -179,7 +187,7 @@ function Timeline() {
             />
           )}
         </PostContainer>
-        <Hashtags 
+        <Hashtags
           setLoadHashtags={setLoadHashtags}
           loadHashtags={loadHashtags}
           loadPosts={loadPosts}
