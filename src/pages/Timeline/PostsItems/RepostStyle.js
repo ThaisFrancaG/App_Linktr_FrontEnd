@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 const RepostContainer = styled.div`
-  font-size: 11px;
+  font-size: 12px;
   line-height: 13.5px;
   position: relative;
   margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Icon = styled.div`
