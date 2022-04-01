@@ -5,7 +5,6 @@ const PostBanner = styled.article`
   width: 500px;
   border: 1px solid #4d4d4d;
   border-radius: 16px;
-
   display: flex;
   justify-content: center;
   align-items: center;

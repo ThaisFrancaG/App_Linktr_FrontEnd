@@ -22,9 +22,9 @@ const CustomStyles = {
     justifyContent: "center",
     flexWrap: "wrap",
   },
-  overlay:{
-    zIndex: '10'
-  }
+  overlay: {
+    zIndex: "10",
+  },
 };
 
 const Form = styled.form`
