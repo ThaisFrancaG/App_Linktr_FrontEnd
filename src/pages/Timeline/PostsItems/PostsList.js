@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
-import useAuth from "../../../hooks/userAuth";
 import {
   ReadContainer,
   ProfileContainer,
@@ -24,7 +23,6 @@ import {
 import { AiOutlineComment } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { BiRepost } from "react-icons/bi";
-import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
