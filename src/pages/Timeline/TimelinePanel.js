@@ -123,7 +123,8 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {location.pathname !== "/timeline" ? (
+          {location.pathname !== "/timeline" &&
+          location.pathname.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}

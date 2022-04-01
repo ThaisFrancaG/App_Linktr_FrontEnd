@@ -28,6 +28,10 @@ const LikedBy = styled.div`
 
 const Container = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Icon = styled.div`
   font-size: 20px;

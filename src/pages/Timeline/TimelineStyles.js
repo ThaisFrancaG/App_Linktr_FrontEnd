@@ -6,6 +6,7 @@ const Container = styled.div`
   /* width: 100vw; */
   justify-content: center;
   height: 100%;
+  margin-bottom: 50px;
 `;
 const HeaderComponent = styled.div`
   position: fixed;
@@ -228,6 +229,8 @@ const SearchIcon = styled.div`
 
 const TimelineContainer = styled.div`
   display: flex;
+  justify-content: center;
+  margin: auto;
 `;
 
 export {
