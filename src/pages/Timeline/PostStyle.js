@@ -11,7 +11,7 @@ const PostContainer = styled.main`
   font-family: "Lato";
   overflow: hidden;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 100%;
     padding-top: 150px;
   }
@@ -106,7 +106,7 @@ const ReadContainer = styled.article`
   padding: 20px;
   color: #ffffff;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     border-radius: 0px;
   }
 `;
@@ -128,12 +128,12 @@ const ProfileContainer = styled.figure`
     height: 50px;
     border-radius: 50%;
     background-color: #ffffff;
-    @media (max-width: 375px) {
+    @media (max-width: 430px) {
       width: 40px;
       height: 40px;
     }
   }
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 40px;
   }
 `;
@@ -150,7 +150,7 @@ const InfoContainer = styled.div`
 
   position: relative;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 100%;
   }
 `;
@@ -164,7 +164,7 @@ const PostUser = styled.span`
   font-size: 19px;
   line-height: 23px;
   margin-bottom: 10px;
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     font-size: 17px;
   }
 `;
@@ -191,7 +191,7 @@ const PostComment = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     font-size: 15px;
   }
 `;
