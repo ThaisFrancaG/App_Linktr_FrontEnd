@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
-//const BASE_URL = "https://projeto-linkr.herokuapp.com";
+//const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://projeto-linkr.herokuapp.com";
 
 function authData(token) {
   return {
@@ -104,12 +104,14 @@ async function postComment(token, body, postId) {
 async function getComments(token, postId) {
   const config = authData(token);
   return await axios.get(`${BASE_URL}/post/${postId}/comment`, config);
+
 }
 
 async function addRepost(token, postId) {
-  console.log("chegou");
+  
   const config = authData(token);
   return await axios.post(`${BASE_URL}/reposting`, { postId: postId }, config);
+
 }
 
 async function getRepost(token, postId) {
@@ -135,8 +137,9 @@ const api = {
   toggleFollowing,
   postComment,
   getComments,
+
   addRepost,
-  getRepost,
+
 };
 
 export default api;

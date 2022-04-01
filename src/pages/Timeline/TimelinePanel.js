@@ -75,12 +75,12 @@ function Timeline() {
       } else {
         response = await api.getPublications(token);
       }
-      console.log(response.data);
+
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
       alert(
-        "An error occured while trying to fetch the posts, please refresh the page AQUI"
+        "An error occured while trying to fetch the posts, please refresh the page"
       );
     }
   }
@@ -120,7 +120,8 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {location.pathname !== "/timeline" ? (
+          {location.pathname !== "/timeline" &&
+          location.pathname.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}

@@ -64,7 +64,7 @@ function Header({ user }) {
   function goToUser({ id, username }) {
     setSelected("");
     setShowList(false);
-    navigation(`/user/${id}`, {state: {username}});
+    navigation(`/user/${id}`, { state: { username } });
     window.location.reload();
   }
 
@@ -81,7 +81,14 @@ function Header({ user }) {
 
   return (
     <HeaderComponent>
-      <Title>linktr</Title>
+      <Title
+        onClick={() => {
+          navigation("/timeline");
+          window.location.reload();
+        }}
+      >
+        linktr{" "}
+      </Title>
       <SearchContainer ref={ref}>
         <SearchBar>
           <DebounceContainer
