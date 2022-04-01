@@ -54,7 +54,7 @@ const Title = styled.span`
   margin: 16px auto auto 16px;
 `;
 
-const StyledLink = styled(Link)`
+const HashtagLink = styled.span`
   display: flex;
 
   font-family: "Lato";
@@ -68,4 +68,4 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 `;
 
-export { Container, HashtagsContainer, TitleContainer, Title, StyledLink };
+export { Container, HashtagsContainer, TitleContainer, Title, HashtagLink };

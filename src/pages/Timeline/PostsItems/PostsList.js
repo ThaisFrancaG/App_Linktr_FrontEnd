@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 import useAuth from "../../../hooks/userAuth";
 import {
@@ -45,6 +45,7 @@ export default function PostsLists({
   const ref = useRef();
   const navigation = useNavigate();
   const { auth } = useAuth();
+  let newLocation = useLocation();
 
   function openModal() {
     setIsOpen(true);
@@ -52,12 +53,12 @@ export default function PostsLists({
 
   function closeModal() {
     setIsOpen(false);
+    // setLoading(false);
   }
 
-  async function handleDelete(id) {
-    document.location.reload(true);
+  async function handleDelete(id, e) {
     setIsOpen(false);
-    setLoading(false);
+    e.preventDefault();
 
     try {
       await api.deletePost(id, auth);
@@ -65,6 +66,7 @@ export default function PostsLists({
     } catch (error) {
       alert("Erro ao apagar o post. Tente novamente");
     }
+    document.location.reload(true);
   }
 
   function handleClick(link) {
@@ -124,7 +126,7 @@ export default function PostsLists({
   }, [edit]);
 
   useEffect(() => {
-    loadPosts();
+    loadPosts(newLocation);
     getWhoLiked();
   }, [loading]);
 
@@ -164,7 +166,7 @@ export default function PostsLists({
                       <Form>
                         <Cancel onClick={closeModal}>No, go back</Cancel>
                         <Delete
-                          onClick={() => handleDelete(post.id)}
+                          onClick={(e) => handleDelete(post.id, e)}
                           disabled={loading}
                         >
                           {loading ? (
@@ -194,9 +196,10 @@ export default function PostsLists({
                   <ReactHashtag
                     renderHashtag={(hashtag) => (
                       <span
-                        onClick={() =>
-                          navigation(`/hashtag/${hashtag.substr(1)}`)
-                        }
+                        onClick={() => {
+                          setLoading(true);
+                          navigation(`/hashtag/${hashtag.substr(1)}`);
+                        }}
                       >
                         {hashtag}
                       </span>

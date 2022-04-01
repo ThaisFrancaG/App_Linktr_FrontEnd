@@ -11,7 +11,7 @@ import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
 
-function TimelineName ({state, hashtag}) {
+function TimelineName({ state, hashtag }) {
   const location = useLocation();
   return (
     <TimelineTitle>
@@ -21,7 +21,7 @@ function TimelineName ({state, hashtag}) {
           : `# ${hashtag}`
         : "timeline"}
     </TimelineTitle>
-  )
+  );
 }
 
 function Timeline() {
@@ -32,9 +32,10 @@ function Timeline() {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
+  const [loadHashtags, setLoadHashtags] = useState(false);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
-  const location = useLocation();
+  let location = useLocation();
   const { hashtag } = useParams();
 
   async function getUser() {
@@ -61,10 +62,11 @@ function Timeline() {
     }
   }
 
-  async function loadPosts() {
-    const path = location.pathname;
+  async function loadPosts(newLocation = null) {
+    const path = newLocation ? newLocation.pathname : location.pathname;
     const token = JSON.parse(localStorage.getItem("auth"));
     let response;
+
     try {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
@@ -78,8 +80,9 @@ function Timeline() {
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
+      console.log(error);
       alert(
-        "An error occured while trying to fetch the posts, please refresh the page AQUI"
+        "An error occured while trying to fetch the posts, please refresh the page"
       );
     }
   }
@@ -110,6 +113,7 @@ function Timeline() {
     getWhoLiked();
     checkFollowing();
     setReloadPosts(false);
+    setLoadHashtags(false);
   }, [reloadPosts]);
 
   return (
@@ -152,7 +156,11 @@ function Timeline() {
             />
           )}
         </PostContainer>
-        <Hashtags />
+        <Hashtags
+          setLoadHashtags={setLoadHashtags}
+          loadHashtags={loadHashtags}
+          loadPosts={loadPosts}
+        />
       </TimelineContainer>
     </Container>
   );
