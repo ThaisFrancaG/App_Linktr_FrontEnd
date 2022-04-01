@@ -5,7 +5,7 @@ import api from "../../../services/api";
 
 import { Button } from "./ButtonStyle";
 
-function FollowButton({ display, pageInfo }) {
+function FollowButton({ display }) {
   const { auth } = useAuth();
   const [buttonStatus, setButtonStatus] = useState(true);
   const [isFollowing, setFollowing] = useState(false);
@@ -37,9 +37,10 @@ function FollowButton({ display, pageInfo }) {
 
   async function handleClick() {
     setButtonStatus(true);
+    const userId = location.pathname.split("/")[2]
 
     try {
-      await api.toggleFollowing(auth, parseInt(pageInfo));
+      await api.toggleFollowing(auth, parseInt(userId));
       isFollowing ? setFollowing(false) : setFollowing(true);
     } catch (error) {
       alert("Something went wrong, please wait before trying again");

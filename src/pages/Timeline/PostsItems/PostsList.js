@@ -73,6 +73,7 @@ export default function PostsLists({
   }
 
   async function handleDelete(id, e) {
+    e.preventDefault();
     setIsOpen(false);
     e.preventDefault();
 

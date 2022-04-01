@@ -35,7 +35,8 @@ function Timeline() {
   const [loadHashtags, setLoadHashtags] = useState(false);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
-  let location = useLocation();
+  const location = useLocation();
+  const path = location.pathname;
   const { hashtag } = useParams();
 
   async function getUser() {
@@ -63,7 +64,7 @@ function Timeline() {
   }
 
   async function loadPosts(newLocation = null) {
-    const path = newLocation ? newLocation.pathname : location.pathname;
+    path = newLocation ? newLocation.pathname : location.pathname;
     const token = JSON.parse(localStorage.getItem("auth"));
     let response;
 
@@ -80,7 +81,6 @@ function Timeline() {
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       alert(
         "An error occured while trying to fetch the posts, please refresh the page"
       );
@@ -123,8 +123,7 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {location.pathname !== "/timeline" &&
-          location.pathname.slice(0, 8) !== "/hashtag" ? (
+          {path !== "/timeline" && path.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}
@@ -134,7 +133,7 @@ function Timeline() {
             <FollowButton display={false} />
           )}
 
-          {location.pathname !== "/timeline" ? (
+          {path !== "/timeline" ? (
             <></>
           ) : (
             <PublishCard
