@@ -14,6 +14,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiOutlineSearch } from "react-icons/ai";
 import { SearchContainer, Users } from "./TimelineStyles";
+import { UserDescript, Username } from "./PostsItems/CommentsStyle";
 
 function Header({ user }) {
   const [showLogout, setActive] = useState(false);
@@ -107,7 +108,10 @@ function Header({ user }) {
           users?.map((profile, index) => (
             <Users key={`profile-${index}`} onClick={() => goToUser(profile)}>
               <ProfileImg src={profile.pictureUrl} />
-              <span>{profile.username}</span>
+              <div>
+                <Username>{profile.username}</Username> 
+                <UserDescript> {profile.userFollows ? `• following` : ""}</UserDescript>
+              </div>
             </Users>
           ))}
       </SearchContainer>

@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 const HeaderComponent = styled.div`
   position: fixed;
-  z-index: 1000;
+  z-index: 9;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -195,6 +195,12 @@ const Users = styled.ul`
   :last-child {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px !important;
   }
 `;
 

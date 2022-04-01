@@ -35,6 +35,7 @@ function Timeline() {
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
   const location = useLocation();
+  const path = location.pathname
   const { hashtag } = useParams();
 
   async function getUser() {
@@ -62,7 +63,6 @@ function Timeline() {
   }
 
   async function loadPosts() {
-    const path = location.pathname;
     const token = JSON.parse(localStorage.getItem("auth"));
     let response;
     try {
@@ -120,8 +120,8 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {location.pathname !== "/timeline" &&
-          location.pathname.slice(0, 8) !== "/hashtag" ? (
+          {path !== "/timeline" &&
+          path.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}
@@ -131,7 +131,7 @@ function Timeline() {
             <FollowButton display={false} />
           )}
 
-          {location.pathname !== "/timeline" ? (
+          {path !== "/timeline" ? (
             <></>
           ) : (
             <PublishCard

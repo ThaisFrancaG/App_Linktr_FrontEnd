@@ -66,8 +66,8 @@ export default function PostsLists({
     setIsOpen(false);
   }
 
-  async function handleDelete(id) {
-    document.location.reload(true);
+  async function handleDelete(id,e) {
+    e.preventDefault()
     setIsOpen(false);
     setLoading(false);
 
@@ -77,6 +77,7 @@ export default function PostsLists({
     } catch (error) {
       alert("Something went wrong while deleting. Reload and try again");
     }
+    document.location.reload(true);
   }
 
   function handleClick(link) {
@@ -198,7 +199,7 @@ export default function PostsLists({
                         <Form>
                           <Cancel onClick={closeModal}>No, go back</Cancel>
                           <Delete
-                            onClick={() => handleDelete(post.id)}
+                            onClick={(e) => handleDelete(post.id, e)}
                             disabled={loading}
                           >
                             {loading ? (
