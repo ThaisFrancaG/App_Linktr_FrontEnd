@@ -170,7 +170,7 @@ export default function PostsLists({
                   />
                   <CommentDisplay onClick={() => handleShowComments(post)}>
                     <AiOutlineComment />
-                    <span>{post.comment_count}</span>
+                    <span>{post.comment_count} comments</span>
                   </CommentDisplay>
                   <RepostDisplay
                     postId={post.id}

@@ -3,13 +3,15 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
 import api from "../../services/api";
 import PublishCard from "./PublishCard";
-import { Container, TimelineContainer, TimelineTitle } from "./TimelineStyles";
+import { Container, LoadMorePosts, TimelineContainer, TimelineTitle } from "./TimelineStyles";
+import { AiOutlineReload } from "react-icons/ai"
 
 import { PostContainer } from "./PostStyle";
 import PostsLists from "./PostsItems/PostsList";
 import Header from "./Header";
 import Hashtags from "./Trendings/HashtagBox";
 import FollowButton from "./Following/FollowButton";
+import useInterval from "use-interval";
 
 function TimelineName({ state, hashtag }) {
   const location = useLocation();
@@ -32,14 +34,27 @@ function Timeline() {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
+  const [numPosts, setNumPosts ] = useState(0);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
   const location = useLocation();
   const path = location.pathname
   const { hashtag } = useParams();
+  const token = JSON.parse(localStorage.getItem("auth"));
+
+  useInterval(async () => {
+    if (path === "/timeline" ) {
+      const { data : newPosts} = await api.getPublications(token);
+
+      const lastPostId = posts[0].id;
+      const newPostLastId = newPosts[0].id;
+
+      setNumPosts(Number(newPostLastId) - Number(lastPostId));
+    }
+  }, path === "/timeline" ? 15000 : null)
 
   async function getUser() {
-    const token = JSON.parse(localStorage.getItem("auth"));
+    
     if (!token) {
       alert("Please, reload and login again");
       navigation("/");
@@ -63,7 +78,6 @@ function Timeline() {
   }
 
   async function loadPosts() {
-    const token = JSON.parse(localStorage.getItem("auth"));
     let response;
     try {
       if (path.includes("/user/")) {
@@ -107,6 +121,7 @@ function Timeline() {
   }, []);
 
   useEffect(() => {
+    setNumPosts(0)
     loadPosts();
     getWhoLiked();
     checkFollowing();
@@ -140,6 +155,11 @@ function Timeline() {
               setLoading={setLoading}
             />
           )}
+          { numPosts ?
+            <LoadMorePosts onClick={() => setReloadPosts(true) }>{numPosts} new posts, load more! <AiOutlineReload /></LoadMorePosts> :
+            <></>
+          }
+
           {loading ? (
             <>Loading...</>
           ) : typeof posts[0] === "string" ? (
