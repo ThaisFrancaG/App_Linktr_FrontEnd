@@ -24,8 +24,6 @@ import {
 import { AiOutlineComment } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { BiRepost } from "react-icons/bi";
-
-import { AiOutlineComment } from "react-icons/ai";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import { FiTrash2 } from "react-icons/fi";
