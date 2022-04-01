@@ -34,11 +34,12 @@ function Timeline() {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
+  const [loadHashtags, setLoadHashtags] = useState(false);
   const [numPosts, setNumPosts ] = useState(0);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
   const location = useLocation();
-  const path = location.pathname
+  let path = location.pathname
   const { hashtag } = useParams();
   const token = JSON.parse(localStorage.getItem("auth"));
 
@@ -77,7 +78,8 @@ function Timeline() {
     }
   }
 
-  async function loadPosts() {
+  async function loadPosts(newLocation = null) {
+    path = newLocation ? newLocation.pathname : location.pathname;
     let response;
     try {
       if (path.includes("/user/")) {
@@ -126,6 +128,7 @@ function Timeline() {
     getWhoLiked();
     checkFollowing();
     setReloadPosts(false);
+    setLoadHashtags(false);
   }, [reloadPosts]);
 
   return (
@@ -156,7 +159,9 @@ function Timeline() {
             />
           )}
           { numPosts ?
-            <LoadMorePosts onClick={() => setReloadPosts(true) }>{numPosts} new posts, load more! <AiOutlineReload /></LoadMorePosts> :
+            <LoadMorePosts 
+              onClick={() => setReloadPosts(true) }>{numPosts} new posts, load more! <AiOutlineReload />
+            </LoadMorePosts> :
             <></>
           }
 
@@ -174,7 +179,11 @@ function Timeline() {
             />
           )}
         </PostContainer>
-        <Hashtags />
+        <Hashtags 
+          setLoadHashtags={setLoadHashtags}
+          loadHashtags={loadHashtags}
+          loadPosts={loadPosts}
+        />
       </TimelineContainer>
     </Container>
   );

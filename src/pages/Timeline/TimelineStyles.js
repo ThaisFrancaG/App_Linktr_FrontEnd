@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   /* width: 100vw; */
+  justify-content: center;
   height: 100%;
   margin-bottom: 50px;
 `;
@@ -29,6 +30,8 @@ const Title = styled.span`
   font-size: 40px;
   font-weight: bold;
   font-family: "Passion One";
+
+  cursor: pointer;
 `;
 
 const ProfileImg = styled.img`
@@ -117,6 +120,8 @@ const FormSubmit = styled.input`
   border-radius: 10px;
   color: white;
   align-self: flex-end;
+
+  cursor: pointer;
 `;
 
 const TimelineTitle = styled.span`
@@ -126,10 +131,11 @@ const TimelineTitle = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 60%;
   background-color: white;
   border: none;
+  border-radius: 8px;
   color: black;
   align-items: center;
   * {
@@ -209,6 +215,7 @@ const SearchBar = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+  color: #c6c6c6;
 `;
 
 const SearchIcon = styled.div`
