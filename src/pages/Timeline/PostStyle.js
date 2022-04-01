@@ -33,6 +33,7 @@ const Container = styled.div`
   position: relative;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+
   background-color: #1e1e1e;
 `;
 
@@ -86,6 +87,15 @@ const Button = styled.button`
   right: 0;
 `;
 
+const RepostContainer = styled.div`
+  display: ${(props) => (props.display ? "flex" : "none")};
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 35px;
+  font-size: 11px;
+  background-color: #1e1e1e;
+`;
 const ReadContainer = styled.article`
   width: 100%;
   height: 280px;
@@ -237,4 +247,5 @@ export {
   Container,
   CommentDisplay,
   IconsContainer,
+  RepostContainer,
 };

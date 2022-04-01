@@ -10,7 +10,7 @@ import useAuth from "../../../hooks/userAuth";
 
 Modal.setAppElement(".root");
 
-export default function RepostDisplay({ postId }) {
+export default function RepostDisplay({ postId, reposts }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState(false);
   const { auth } = useAuth();
@@ -57,6 +57,7 @@ export default function RepostDisplay({ postId }) {
           </Form>
         </Modal>
       </Icon>
+      {reposts}
     </RepostContainer>
   );
 }

@@ -9,6 +9,7 @@ import {
   Container,
   CommentDisplay,
   IconsContainer,
+  RepostContainer,
 } from "../PostStyle";
 import {
   PostBanner,
@@ -19,6 +20,8 @@ import {
   LinkUrl,
 } from "./SnippetStyle";
 import { FiEdit2 } from "react-icons/fi";
+import { BiRepost } from "react-icons/bi";
+
 import { AiOutlineComment } from "react-icons/ai";
 import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
@@ -32,6 +35,7 @@ import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
 import useAuth from "../../../hooks/userAuth";
+import { Icon } from "./LikesStyle";
 
 Modal.setAppElement(".root");
 
@@ -146,6 +150,12 @@ export default function PostsLists({
       {posts[0].id ? (
         posts.map((post) => (
           <Container>
+            <RepostContainer display={post.isRepost}>
+              <Icon>
+                <BiRepost />
+              </Icon>
+              Re-posted by {post.userId}
+            </RepostContainer>
             <ReadContainer key={post.id}>
               <ProfileContainer>
                 <img src={post.userPic} alt="profile pic" />
@@ -161,7 +171,10 @@ export default function PostsLists({
                     <AiOutlineComment />
                     <span>{post.comment_count}</span>
                   </CommentDisplay>
-                  <RepostDisplay postId={post.id} />
+                  <RepostDisplay
+                    postId={post.id}
+                    reposts={post.reposts_count}
+                  />
                 </IconsContainer>
               </ProfileContainer>
               <InfoContainer>
