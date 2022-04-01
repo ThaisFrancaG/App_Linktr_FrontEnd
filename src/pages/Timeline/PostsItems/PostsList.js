@@ -29,7 +29,6 @@ import CommentsComponent from "./Comments";
 import api from "../../../services/api";
 import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
-import useAuth from "../../../hooks/userAuth";
 import { Cancel, CustomStyles, Delete, Form } from "./DeleteStyle";
 
 Modal.setAppElement(".root");
@@ -60,7 +59,6 @@ export default function PostsLists({
 
   function closeModal() {
     setIsOpen(false);
-    // setLoading(false);
   }
 
   async function handleDelete(id, e) {

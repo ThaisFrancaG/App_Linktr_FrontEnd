@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../../../services/api";
+import { ThreeDots } from "react-loader-spinner";
 import {
   Container,
   TitleScreen,
@@ -97,7 +98,16 @@ function SignUp() {
           required
         />
         <Button type="submit" disabled={isLoading}>
-          Sign Up
+          {isLoading ? (
+            <ThreeDots
+              type="ThreeDots"
+              color="#FFFFFF"
+              height={50}
+              width={50}
+            />
+          ) : (
+            "Sign Up"
+          )}
         </Button>
         <StyledLink to="/">Switch back to login in</StyledLink>
       </Form>

@@ -53,6 +53,7 @@ function Hashtags({ setLoadHashtags, loadHashtags, loadPosts }) {
       <HashtagLink
         key={index}
         onClick={() => {
+          console.log(hashtag);
           loadPosts(newLocation);
           navigation(`/hashtag/${hashtag.tag}`);
           window.location.reload();
