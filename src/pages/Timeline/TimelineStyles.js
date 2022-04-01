@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 const HeaderComponent = styled.div`
   position: fixed;
-  z-index: 1000;
+  z-index: 9;
   display: flex;
   justify-content: space-between;
   align-items: center;

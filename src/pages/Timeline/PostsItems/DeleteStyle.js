@@ -3,7 +3,6 @@ import styled from "styled-components";
 const CustomStyles = {
   content: {
     // position: "fixed",
-    // zIndex: "1000",
     fontFamily: "Lato",
     width: "597px",
     height: "262px",
@@ -23,6 +22,9 @@ const CustomStyles = {
     justifyContent: "center",
     flexWrap: "wrap",
   },
+  overlay:{
+    zIndex: '10'
+  }
 };
 
 const Form = styled.form`

@@ -112,7 +112,6 @@ function Timeline() {
     checkFollowing();
     setReloadPosts(false);
   }, [reloadPosts]);
-  console.log(user)
 
   return (
     <Container>
