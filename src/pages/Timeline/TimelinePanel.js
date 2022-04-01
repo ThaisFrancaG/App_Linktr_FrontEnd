@@ -32,10 +32,11 @@ function Timeline() {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [reloadPosts, setReloadPosts] = useState(false);
+  const [loadHashtags, setLoadHashtags] = useState(false);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]);
   const location = useLocation();
-  const path = location.pathname
+  const path = location.pathname;
   const { hashtag } = useParams();
 
   async function getUser() {
@@ -62,9 +63,11 @@ function Timeline() {
     }
   }
 
-  async function loadPosts() {
+  async function loadPosts(newLocation = null) {
+    path = newLocation ? newLocation.pathname : location.pathname;
     const token = JSON.parse(localStorage.getItem("auth"));
     let response;
+
     try {
       if (path.includes("/user/")) {
         const id = path.split("/")[2];
@@ -75,7 +78,6 @@ function Timeline() {
       } else {
         response = await api.getPublications(token);
       }
-
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
@@ -111,6 +113,7 @@ function Timeline() {
     getWhoLiked();
     checkFollowing();
     setReloadPosts(false);
+    setLoadHashtags(false);
   }, [reloadPosts]);
 
   return (
@@ -120,8 +123,7 @@ function Timeline() {
         <PostContainer>
           <TimelineName state={state} hashtag={hashtag} />
 
-          {path !== "/timeline" &&
-          path.slice(0, 8) !== "/hashtag" ? (
+          {path !== "/timeline" && path.slice(0, 8) !== "/hashtag" ? (
             <FollowButton
               display={true}
               pageInfo={posts[0]?.userId}
@@ -154,7 +156,11 @@ function Timeline() {
             />
           )}
         </PostContainer>
-        <Hashtags />
+        <Hashtags
+          setLoadHashtags={setLoadHashtags}
+          loadHashtags={loadHashtags}
+          loadPosts={loadPosts}
+        />
       </TimelineContainer>
     </Container>
   );

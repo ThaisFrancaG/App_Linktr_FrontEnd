@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 import {
   ReadContainer,
   ProfileContainer,
   InfoContainer,
   PostComment,
-  PostUser,
-  UsenameContainer,
   Container,
   CommentDisplay,
+  PostUser,
+  UsenameContainer,
   IconsContainer,
   RepostContainer,
 } from "../PostStyle";
@@ -19,11 +20,9 @@ import {
   LinkDesc,
   LinkUrl,
 } from "./SnippetStyle";
+import { AiOutlineComment } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { BiRepost } from "react-icons/bi";
-
-import { AiOutlineComment } from "react-icons/ai";
-import React, { useState, useRef, useEffect } from "react";
 import { FormInput } from "../TimelineStyles";
 import { FiTrash2 } from "react-icons/fi";
 import ReactHashtag from "@mdnm/react-hashtag";
@@ -47,16 +46,17 @@ export default function PostsLists({
   getWhoLiked,
 }) {
   const [postEditId, setEditId] = useState();
-  const [postCommentsId, setShowId] = useState();
   const [linkEdit, setLink] = useState();
   const [descEdit, setDesc] = useState();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [postCommentsId, setShowId] = useState();
   const ref = useRef();
   const navigation = useNavigate();
   const { auth } = useAuth();
+  let newLocation = useLocation();
 
   function openModal() {
     setIsOpen(true);
@@ -66,10 +66,10 @@ export default function PostsLists({
     setIsOpen(false);
   }
 
-  async function handleDelete(id,e) {
-    e.preventDefault()
+  async function handleDelete(id, e) {
+    e.preventDefault();
     setIsOpen(false);
-    setLoading(false);
+    e.preventDefault();
 
     try {
       await api.deletePost(id, auth);
@@ -142,7 +142,7 @@ export default function PostsLists({
   }, [edit]);
 
   useEffect(() => {
-    loadPosts();
+    loadPosts(newLocation);
     getWhoLiked();
   }, [loading]);
 
@@ -257,6 +257,7 @@ export default function PostsLists({
                 </PostBanner>
               </InfoContainer>
             </ReadContainer>
+
             {showComments && postCommentsId === post.id && (
               <CommentsComponent user={user} post={post} load={showComments} />
             )}

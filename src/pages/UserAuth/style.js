@@ -11,7 +11,7 @@ const Container = styled.main`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     flex-direction: column;
     justify-content: start;
   }
@@ -26,7 +26,7 @@ const TitleScreen = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     height: 175px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
@@ -38,7 +38,7 @@ const TitleScreen = styled.div`
 
     padding-left: 144px;
 
-    @media (max-width: 375px) {
+    @media (max-width: 430px) {
       margin-left: 0px;
       align-items: center;
       padding-left: 0;
@@ -57,7 +57,7 @@ const Title = styled.span`
   letter-spacing: 0.05em;
   text-align: left;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     margin-bottom: -10px;
     font-size: 76px;
     line-height: 84px;
@@ -74,7 +74,7 @@ const SubTitle = styled.span`
   text-align: left;
   color: #ffffff;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     font-size: 23px;
     line-height: 34px;
   }
@@ -88,7 +88,7 @@ const Form = styled.form`
 
   padding: 0 51px 0 55px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 90%;
     margin-top: 40px;
     justify-content: start;
@@ -111,7 +111,7 @@ const Input = styled.input`
   line-height: 40px;
   font-family: "Oswald";
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 100%;
     height: 55px;
     font-size: 22px;
@@ -141,7 +141,7 @@ const Button = styled.button`
   background: #1877f2;
   color: #fff;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     width: 100%;
     height: 55px;
     font-size: 22px;
@@ -158,7 +158,7 @@ const StyledLink = styled(Link)`
   font-family: "Lato";
   text-decoration-line: underline;
 
-  @media (max-width: 375px) {
+  @media (max-width: 430px) {
     font-size: 17px;
     line-height: 20px;
   }

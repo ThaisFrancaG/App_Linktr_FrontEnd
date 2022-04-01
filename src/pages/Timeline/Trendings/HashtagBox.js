@@ -4,15 +4,16 @@ import api from "../../../services/api";
 import {
   Container,
   HashtagsContainer,
-  StyledLink,
+  HashtagLink,
   Title,
   TitleContainer,
 } from "./HashtagBoxStyle";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
-function Hashtags() {
+function Hashtags({ setLoadHashtags, loadHashtags, loadPosts }) {
   const [trendings, setTrendings] = useState(null);
   const navigation = useNavigate();
+  let newLocation = useLocation();
 
   async function handleTrendings() {
     const token = JSON.parse(localStorage.getItem("auth"));
@@ -23,18 +24,17 @@ function Hashtags() {
     }
     try {
       const hashtag = await api.getHashtags(token);
-
       setTrendings(hashtag.data);
+      setLoadHashtags(true);
       return;
     } catch (error) {
       console.log(error);
-      return;
     }
   }
 
   useEffect(() => {
     handleTrendings();
-  }, []);
+  }, [loadHashtags]);
 
   if (trendings === null) {
     return (
@@ -50,9 +50,17 @@ function Hashtags() {
 
   const listTrending = trendings.map((hashtag, index) => {
     return (
-      <StyledLink key={index} to={`/hashtag/${hashtag.tag}`}>
+      <HashtagLink
+        key={index}
+        onClick={() => {
+          console.log(hashtag);
+          loadPosts(newLocation);
+          navigation(`/hashtag/${hashtag.tag}`);
+          window.location.reload();
+        }}
+      >
         # {hashtag.tag}
-      </StyledLink>
+      </HashtagLink>
     );
   });
 
