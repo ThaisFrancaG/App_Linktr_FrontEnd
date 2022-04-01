@@ -23,14 +23,14 @@ export default function RepostDisplay({ postId }) {
   }
 
   async function handleRepost(id) {
-    document.location.reload(true);
     setIsOpen(false);
     setStatus(false);
     try {
-      await api.toggleRepost(auth, id);
+      await api.addRepost(auth, id);
     } catch (error) {
       alert("Something went wrong while reposting. Reload and try again");
     }
+    document.location.reload(true);
   }
   return (
     <RepostContainer>
