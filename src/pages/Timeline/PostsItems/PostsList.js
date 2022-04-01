@@ -10,7 +10,6 @@ import {
   CommentDisplay,
   PostUser,
   UsenameContainer,
-  CommentDisplay,
   IconsContainer,
   RepostContainer,
 } from "../PostStyle";
