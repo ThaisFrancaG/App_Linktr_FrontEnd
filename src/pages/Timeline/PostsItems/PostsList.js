@@ -67,8 +67,8 @@ export default function PostsLists({
   }
 
   async function handleDelete(id, e) {
-    setIsOpen(false);
     e.preventDefault();
+    setIsOpen(false);
 
     try {
       await api.deletePost(id, auth);
