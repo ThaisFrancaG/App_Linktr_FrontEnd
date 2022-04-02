@@ -87,7 +87,7 @@ function Timeline() {
 
   async function loadPosts(newLocation = null) {
     path = newLocation ? newLocation.pathname : location.pathname;
-    console.log(path);
+
     let response;
     try {
       if (path.includes("/user/")) {
